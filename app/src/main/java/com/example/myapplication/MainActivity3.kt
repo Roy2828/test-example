@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.recycler.MyAdapter
+import com.example.myapplication.recycler.MyAdapter2
 
 /**
  *    desc   :
@@ -23,7 +24,9 @@ class MainActivity3:AppCompatActivity() {
         for (i in 1 .. 100){
             arrayList.add("$i")
         }
-        re.adapter = MyAdapter(arrayList)
+        re.adapter?.setHasStableIds(true)
+        re.adapter = MyAdapter2(arrayList)
+
         re.layoutManager = LinearLayoutManager(this)
     }
 }
