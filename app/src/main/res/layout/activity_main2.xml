@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+  >
+
+    <Button
+        android:onClick="startService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="startService服务" />
+
+    <Button
+        android:onClick="bind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="绑定服务" />
+
+    <Button
+        android:onClick="call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="调用服务的方法" />
+
+    <Button
+        android:onClick="unbind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解除绑定服务" />
+
+</LinearLayout>
