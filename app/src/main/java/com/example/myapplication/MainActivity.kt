@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
+import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 
 import java.io.IOException
 
@@ -117,5 +118,10 @@ class MainActivity : AppCompatActivity() {
     fun startActivityMethod2(view: View) {
 
         startActivity(Intent(this,MainActivity3::class.java))
+    }
+
+    fun startActivityMethod3(view: View) {
+        RecyclerViewActivity.startActivity(this)
+
     }
 }
