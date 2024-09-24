@@ -36,6 +36,10 @@
         <activity android:name=".MainActivity3"/>
 
         <activity android:name=".examplerecyclerview.RecyclerViewActivity"/>
+
+        <activity android:name=".expandablerecyclerview.sample.MainActivity8"/>
+        <activity android:name=".expandablerecyclerview.sample.SingleRvActivity"/>
+        <activity android:name=".expandablerecyclerview.sample.MultipleRvActivity"/>
     </application>
 
 </manifest>

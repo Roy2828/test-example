@@ -1,0 +1,69 @@
+<resources>
+
+    <string name="action_settings" translatable="false">Settings</string>
+
+    <string name="single_rv_title">single_rv</string>
+    <string name="multiple_rv_title">multiple_rv</string>
+
+    <string name="jump_single_rv">单个 RecyclerView</string>
+    <string name="jump_multiple_rv">共享 Adapter 的双 RecyclerView</string>
+
+    <string name="action_test" translatable="false">Test</string>
+    <string name="action_expand_all">全部展开</string>
+    <string name="action_collapse_all">全部折叠</string>
+    <string name="action_expand_1">展开 1</string>
+    <string name="action_collapse_1">折叠 1</string>
+    <string name="action_toggle_expandable_1">切换 1 的是否可展开属性</string>
+
+    <string name="parent_type" translatable="false">ParentType:%1$s , Pos:%2$d , AdapterPos:%3$d</string>
+    <string name="child_type" translatable="false">ChildType:%1$s , Pos:%2$d , AdapterPos:%3$d</string>
+
+    <string name="snack" translatable="false">AdapterPos:%1$s</string>
+
+    <string name="hint_input_error">输入格式有误! parent:parentPos,[count];
+        child:parentPos,childPos,[count];count default value is 1</string>
+
+    <string name="title_input" translatable="false">Test</string>
+    <string name="refreshAll" translatable="false">Refresh_All</string>
+
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    
+    <string name="notifyParentItemInserted" translatable="false">notifyParentItemInserted</string>
+    <string name="notifyParentItemRangeInserted" translatable="false">notifyParentItemRangeInserted</string>
+    <string name="notifyChildItemInserted" translatable="false">notifyChildItemInserted</string>
+    <string name="notifyChildItemRangeInserted" translatable="false">notifyChildItemRangeInserted</string>
+
+    <string name="notifyParentItemRemoved" translatable="false">notifyParentItemRemoved</string>
+    <string name="notifyParentItemRangeRemoved" translatable="false">notifyParentItemRangeRemoved</string>
+    <string name="notifyChildItemRemoved" translatable="false">notifyChildItemRemoved</string>
+    <string name="notifyChildItemRangeRemoved" translatable="false">notifyChildItemRangeRemoved</string>
+
+    <string name="notifyParentItemChanged" translatable="false">notifyParentItemChanged</string>
+    <string name="notifyParentItemRangeChanged" translatable="false">notifyParentItemRangeChanged</string>
+    <string name="notifyChildItemChanged" translatable="false">notifyChildItemChanged</string>
+    <string name="notifyChildItemRangeChanged" translatable="false">notifyChildItemRangeChanged</string>
+
+    <string name="parent_hint" translatable="false">parent</string>
+    <string name="child_hint" translatable="false">child</string>
+    <string name="move_parent_hint" translatable="false">move_parent</string>
+    <string name="move_child_hint" translatable="false">move_child</string>
+
+    <string name="Item" translatable="false">Item</string>
+    <string name="ItemRange" translatable="false">ItemRange</string>
+
+    <string name="notifyParentInserted" translatable="false">notifyParent%1$sInserted</string>
+    <string name="notifyChildInserted" translatable="false">notifyChild%1$sInserted</string>
+
+    <string name="notifyParentRemoved" translatable="false">notifyParent%1$sRemoved</string>
+    <string name="notifyChildRemoved" translatable="false">notifyChild%1$sRemoved</string>
+
+    <string name="notifyParentChanged" translatable="false">notifyParent%1$sChanged</string>
+    <string name="notifyChildChanged" translatable="false">notifyChild%1$sChanged</string>
+
+    <string name="notifyParentMoved" translatable="false">notifyParent%1$sMoved</string>
+    <string name="notifyChildMoved" translatable="false">notifyChild%1$sMoved</string>
+
+    <string name="methodAndArgs" translatable="false">%1$s,%2$s</string>
+
+</resources>

@@ -1,0 +1,45 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.jhj.expandablerecyclerviewexample.MainActivity">
+
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/refreshAll"
+        app:showAsAction="withText|ifRoom"/>
+
+    <item
+        android:id="@+id/action_test"
+        android:title="@string/action_test"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_expand_all"
+        android:title="@string/action_expand_all"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_collapse_all"
+        android:title="@string/action_collapse_all"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_expand_1"
+        android:title="@string/action_expand_1"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_collapse_1"
+        android:title="@string/action_collapse_1"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_toggle_expandable_1"
+        android:title="@string/action_toggle_expandable_1"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+</menu>
