@@ -3,13 +3,15 @@
     package="com.example.myapplication">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity5" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +29,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity2"/>
+        <activity android:name=".MainActivity2" android:exported="true">
+
+        </activity>
 
         <service android:name=".MyService" android:exported="true"/>
 
@@ -40,6 +44,20 @@
         <activity android:name=".expandablerecyclerview.sample.MainActivity8"/>
         <activity android:name=".expandablerecyclerview.sample.SingleRvActivity"/>
         <activity android:name=".expandablerecyclerview.sample.MultipleRvActivity"/>
+        <activity android:name=".MainActivity6" android:exported="true">
+            <intent-filter>
+                <action android:name="router" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="superlink"
+                    android:scheme="router" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity7" android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>
