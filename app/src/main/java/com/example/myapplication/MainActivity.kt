@@ -4,16 +4,22 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
-import android.os.PersistableBundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
-import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
-import com.example.myapplication.expandablerecyclerview.sample.MainActivity8
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.tv3
 
-import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +44,47 @@ class MainActivity : AppCompatActivity() {
 
         })*/
 
+
+        val text = "分享当前群聊，邀请好友进群薅空投，双方都可获得高额奖励！点击查看玩转超级链接 >>"
+
+        val spannableStringBuilder = SpannableStringBuilder(text)
+
+// 检查文本中是否包含目标子串
+        val clickableText = "点击查看玩转超级链接 >>"
+        val startIndex = text.indexOf(clickableText)
+
+        if (startIndex != -1) { // 确保找到了子串
+            val endIndex = startIndex + clickableText.length
+            spannableStringBuilder.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.colorPrimary)),
+                startIndex,
+                endIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(widget: android.view.View) {
+                    // 处理点击事件
+                    Toast.makeText(this@MainActivity, "点击事件触发！", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun updateDrawState(ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.isUnderlineText = false // 去除下划线
+                }
+            }
+
+            spannableStringBuilder.setSpan(
+                clickableSpan,
+                startIndex,
+                endIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        tv3.text = spannableStringBuilder
+        tv3.movementMethod = LinkMovementMethod.getInstance()
+        tv3.highlightColor = android.graphics.Color.TRANSPARENT
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -124,7 +171,15 @@ class MainActivity : AppCompatActivity() {
     fun startActivityMethod3(view: View) {
       //  RecyclerViewActivity.startActivity(this)
 
-        startActivity(Intent(this, MainActivity8::class.java))
+     //   startActivity(Intent(this, MainActivity8::class.java))
 
+       // startActivity(Intent(this, MainActivity5::class.java))
+
+        //var intent = Intent("router://superlink/chat/detail?groupId=155115515")
+        //startActivity(intent)
+
+        val intent = Intent("router")
+        intent.setData(Uri.parse("router://superlink/chat/detail?groupId=155115515"))
+        startActivity(intent)
     }
 }

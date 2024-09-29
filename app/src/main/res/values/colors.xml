@@ -10,7 +10,7 @@
     <color name="gray">#333</color>
     <color name="gray_light">#dfdfdf</color>
 
-
+    <color name="colorFocused">#bbdefb</color>
 
 
     <color name="md_grey_800">#ff424242</color>
