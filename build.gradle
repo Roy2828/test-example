@@ -3,11 +3,11 @@ buildscript {
     ext.kotlin_version = "1.4.0"
     repositories {
         google()
-        jcenter()
+
         mavenCentral()
-        maven { url "https://maven.google.com" }
+/*        maven { url "https://maven.google.com" }
         // 华为开源镜像：https://mirrors.huaweicloud.com
-/*        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/google' }
@@ -29,17 +29,17 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+
         mavenCentral()
         maven { url "https://maven.google.com" }
         // 华为开源镜像：https://mirrors.huaweicloud.com
-  /*      maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url 'https://maven.aliyun.com/repository/public' }
-        maven { url 'https://www.jitpack.io' }*/
+        maven { url 'https://www.jitpack.io' }
 
         maven { url 'https://www.jitpack.io' }
     }
