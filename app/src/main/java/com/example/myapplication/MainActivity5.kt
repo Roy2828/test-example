@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,8 @@ class MainActivity5 :AppCompatActivity() {
 
     fun test(view: View) {
 
-        val uriString = "router://superlink?url=/chat/details"
+      //  val uriString = "router://superlink?url=/chat/details"
+        val uriString = "router://superlink?url=chat/detail?groupId=5754&groupName=11"
 
 // 将Uri链接字符串转换为Uri对象
 
