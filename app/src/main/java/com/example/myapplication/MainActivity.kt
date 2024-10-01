@@ -18,6 +18,8 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
+import com.example.myapplication.expandablerecyclerview.sample.MainActivity8
 import kotlinx.android.synthetic.main.activity_main.tv3
 
 
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         })*/
 
-
+/*
         val text = "分享当前群聊，邀请好友进群薅空投，双方都可获得高额奖励！点击查看玩转超级链接 >>"
 
         val spannableStringBuilder = SpannableStringBuilder(text)
@@ -84,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         tv3.text = spannableStringBuilder
         tv3.movementMethod = LinkMovementMethod.getInstance()
-        tv3.highlightColor = android.graphics.Color.TRANSPARENT
+        tv3.highlightColor = android.graphics.Color.TRANSPARENT*/
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -169,9 +171,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startActivityMethod3(view: View) {
-      //  RecyclerViewActivity.startActivity(this)
+        RecyclerViewActivity.startActivity(this)
 
-     //   startActivity(Intent(this, MainActivity8::class.java))
+     //startActivity(Intent(this, MainActivity8::class.java))
 
        // startActivity(Intent(this, MainActivity5::class.java))
 

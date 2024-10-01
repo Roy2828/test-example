@@ -1,29 +1,27 @@
 package com.example.myapplication.examplerecyclerview
 
-import android.animation.Animator
-import android.animation.Animator.AnimatorListener
-import android.animation.AnimatorListenerAdapter
-import com.example.myapplication.examplerecyclerview.ItemModel
-import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
-import android.view.LayoutInflater
-import com.example.myapplication.R
-import android.annotation.SuppressLint
-import androidx.core.content.ContextCompat
-import com.example.myapplication.expandablelayout.ExpandableLayoutListenerAdapter
-import com.example.myapplication.expandablelayout.ExpandableLayout
-import android.widget.TextView
-import android.widget.RelativeLayout
-import com.example.myapplication.expandablelayout.ExpandableLinearLayout
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.cachapa.test.RecyclerViewFragment
+import com.example.myapplication.expandablelayout.ExpandableLayout
+import com.example.myapplication.expandablelayout.ExpandableLayoutListenerAdapter
+import com.example.myapplication.expandablelayout.ExpandableLinearLayout
 import com.example.myapplication.expandablelayout.Utils
-import java.util.HashMap
 
 class RecyclerViewRecyclerAdapter(private val data: List<ItemModel>) :
     RecyclerView.Adapter<RecyclerViewRecyclerAdapter.ViewHolder>() {
     private var context: Context? = null
+
+    var itemClick:((expandableLayout: ExpandableLayout,position: Int)->Unit)?=null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,51 +47,27 @@ class RecyclerViewRecyclerAdapter(private val data: List<ItemModel>) :
         holder.expandableLayout.setListener(object : ExpandableLayoutListenerAdapter() {
             override fun onPreOpen() {
                // createRotateAnimator(holder.buttonLayout, 0f, 180f).start()
-                data.forEachIndexed{index,item ->
-                    if(position == index){
-                        item.isExpanded = true
-                    }else{
-                        item.isExpanded = false
-                    }
-               }
-
-            var animator =    createRotateAnimator(holder.buttonLayout, 0f, 180f)
-                animator.addListener(object : AnimatorListener{
-                    override fun onAnimationStart(animation: Animator?) {
-
-                    }
-
-                    override fun onAnimationEnd(animation: Animator?) {
-                        notifyDataSetChanged()
-                    }
-
-                    override fun onAnimationCancel(animation: Animator?) {
-
-                    }
-
-                    override fun onAnimationRepeat(animation: Animator?) {
-
-                    }
-                })
-                animator.start()
-
-
+             if(item.isExpanded) {
+                 createRotateAnimator(holder.buttonLayout, 0f, 180f).start()
+             }
             }
 
             override fun onPreClose() {
-                createRotateAnimator(holder.buttonLayout, 180f, 0f).start()
-                data[position].isExpanded = false
+                if(!item.isExpanded && holder.expandableLayout.isExpanded) {
+                    createRotateAnimator(holder.buttonLayout, 180f, 0f).start()
+                }
+               // data[position].isExpanded = false
             }
         })
         holder.buttonLayout.rotation = if (item.isExpanded) 180f else 0f
         holder.buttonLayout.setOnClickListener {
-            onClickButton(holder.expandableLayout)
+            //onClickButton(holder.expandableLayout,position)
+
+            itemClick?.invoke(holder.expandableLayout,position)
         }
     }
 
-    private fun onClickButton(expandableLayout: ExpandableLayout) {
-        expandableLayout.toggle()
-    }
+
 
     override fun getItemCount(): Int {
         return data.size

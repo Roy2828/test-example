@@ -2,7 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build.VERSION_CODES.R
+
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
