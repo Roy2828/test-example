@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -15,12 +17,13 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.expandablerecyclerview.sample.MainActivity8
-import kotlinx.android.synthetic.main.activity_main.tv3
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -87,6 +90,10 @@ class MainActivity : AppCompatActivity() {
         tv3.text = spannableStringBuilder
         tv3.movementMethod = LinkMovementMethod.getInstance()
         tv3.highlightColor = android.graphics.Color.TRANSPARENT*/
+
+
+
+        startContinuousAnimation(iv)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -183,5 +190,43 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent("router")
         intent.setData(Uri.parse("router://superlink/chat/detail?groupId=155115515"))
         startActivity(intent)
+    }
+
+
+    fun startContinuousAnimation(view: View) {
+
+        view.pivotX = 0.1f
+        view.pivotY = 0.15f
+
+        val scaleDownX: ObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.5f, 1.0f)
+        val scaleDownY: ObjectAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.5f, 1.0f)
+        val moveLeft: ObjectAnimator =
+            ObjectAnimator.ofFloat(view, "translationX", 0f, 0f)
+        val moveUp: ObjectAnimator =
+            ObjectAnimator.ofFloat(view, "translationY", 0f, -30f)
+
+        scaleDownX.setDuration(500)
+        scaleDownY.setDuration(500)
+        moveLeft.setDuration(1000)
+        moveUp.setDuration(1000)
+
+        val scaleAndMove = AnimatorSet()
+        scaleAndMove.playTogether(scaleDownX, scaleDownY, moveLeft, moveUp)
+        scaleAndMove.setInterpolator(AccelerateDecelerateInterpolator())
+
+        val moveDown: ObjectAnimator =
+            ObjectAnimator.ofFloat(view, "translationY", -30f, 0f)
+        moveDown.setDuration(1000)
+        moveDown.setRepeatCount(ObjectAnimator.INFINITE)
+        moveDown.setRepeatMode(ObjectAnimator.REVERSE)
+
+        val bounce = AnimatorSet()
+        bounce.play(moveDown)
+        bounce.setInterpolator(AccelerateDecelerateInterpolator())
+
+        val continuousAnimation = AnimatorSet()
+        continuousAnimation.playSequentially(scaleAndMove, bounce)
+
+        continuousAnimation.start()
     }
 }

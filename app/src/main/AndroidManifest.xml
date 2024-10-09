@@ -59,6 +59,14 @@
 
         </activity>
         <activity android:name=".cachapa.test.MainActivityTest"/>
+
+
+        <service android:name=".aidls.MyServiceA"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.myapplication.MyService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
