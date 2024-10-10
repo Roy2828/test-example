@@ -53,4 +53,45 @@
 
         />
 
+
+
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toBottomOf="@id/tv3"
+       >
+
+       <View
+           android:id="@+id/view1"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:background="@android:color/holo_blue_light"
+           app:layout_constraintWidth_percent="0.33"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toStartOf="@+id/view2"
+           app:layout_constraintTop_toTopOf="parent"/>
+
+       <View
+           android:id="@+id/view2"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:background="@android:color/holo_green_light"
+           app:layout_constraintWidth_percent="0.33"
+           app:layout_constraintStart_toEndOf="@+id/view1"
+           app:layout_constraintEnd_toStartOf="@+id/view3"
+           app:layout_constraintTop_toTopOf="parent"/>
+
+       <View
+           android:id="@+id/view3"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:background="@android:color/holo_red_light"
+           app:layout_constraintWidth_percent="0.33"
+           app:layout_constraintStart_toEndOf="@+id/view2"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
