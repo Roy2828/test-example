@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:showDividers="middle"
+
+   >
+
+
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font100"
+                            android:textFontWeight="100" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font200"
+                            android:textFontWeight="200" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font300"
+                            android:textFontWeight="300" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font400"
+                            android:textFontWeight="400" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font500"
+                            android:textFontWeight="500" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font600"
+                            android:textFontWeight="600" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font700"
+                            android:textFontWeight="700" />
+
+                        <TextView
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Font800"
+                            android:textFontWeight="800" />
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文100"
+                        android:textFontWeight="100" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文200"
+                        android:textFontWeight="200" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文300"
+                        android:textFontWeight="300" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文400"
+                        android:textFontWeight="400" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文500"
+                        android:textFontWeight="500" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文600"
+                        android:textFontWeight="600" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文700"
+                        android:textFontWeight="700" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文800"
+                        android:textFontWeight="800" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中文900"
+                        android:textFontWeight="900" />
+                </LinearLayout>
+
+                <LinearLayout
+                   android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义100"
+                        app:textFontWeight="100" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义200"
+                        app:textFontWeight="200" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义300"
+                        app:textFontWeight="300" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义400"
+                        app:textFontWeight="400" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义500"
+                        app:textFontWeight="500" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义600"
+                        app:textFontWeight="600" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义700"
+                        app:textFontWeight="700" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义800"
+                        app:textFontWeight="800" />
+
+                    <com.example.myapplication.textView.FontWeightTextView
+                        style="@style/CustomTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义900"
+                        app:textFontWeight="900" />
+                </LinearLayout>
+
+                <LinearLayout
+                   android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thin"
+                        app:fontWeightValue="thin" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Extra Light"
+                        app:fontWeightValue="extraLight" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Light"
+                        app:fontWeightValue="light" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Normal"
+                        app:fontWeightValue="normal" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medium"
+                        app:fontWeightValue="medium" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Semi Bold"
+                        app:fontWeightValue="semiBold" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bold"
+                        app:fontWeightValue="bold" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Extra Bold"
+                        app:fontWeightValue="extraBold" />
+
+                    <com.example.myapplication.textView.FontWeightValueTextView
+                        style="@style/WeightTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Black"
+                        app:fontWeightValue="black" />
+                </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

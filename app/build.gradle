@@ -78,10 +78,15 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
     implementation 'androidx.recyclerview:recyclerview:1.2.0' // 确保版本号是最新的或适合你项目的版本
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
 
-
- 
+    implementation 'com.gitee.zackratos:UltimateBarX:0.7.1'
 
     implementation 'com.alibaba:arouter-api:1.5.2'
     kapt 'com.alibaba:arouter-compiler:1.5.2'
+
+
+
+
+
 }

@@ -20,6 +20,7 @@
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowSplashscreenContent">@drawable/ic_launcher_background</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

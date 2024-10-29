@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -18,12 +19,16 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
-import com.example.myapplication.expandablerecyclerview.sample.MainActivity8
+import com.example.myapplication.textView.TextWeightActivity
+import com.example.myapplication.utils.HookUtil
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +36,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
        // Log.e("Roy","hhhhhhhhhhhhhh")
+
+      /*  navigationBar {     //这段代码会导致 hook contentprovde启动失败
+
+        }*/
 
         testServer()
        /*  var retrofit = Retrofit.Builder().baseUrl("http://www.baidu.com")
@@ -169,7 +178,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startActivityMethod(view: View) {
-        startActivity(Intent(this,MainActivity2::class.java))
+      //  startActivity(Intent(this,MainActivity2::class.java))
+
+       startActivity(Intent(this, TextWeightActivity::class.java))
     }
 
     fun startActivityMethod2(view: View) {
@@ -190,6 +201,26 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent("router")
         intent.setData(Uri.parse("router://superlink/chat/detail?groupId=155115515"))
         startActivity(intent)
+    }
+
+    @SuppressLint("BlockedPrivateApi")
+    fun test3(){
+        try {
+            var im = getSystemService(INPUT_METHOD_SERVICE)
+            var mCurRootView = InputMethodManager::class.java.getDeclaredField("mCurRootView");
+            mCurRootView.isAccessible = true
+            mCurRootView.set(im,null)
+
+            var mNextServedView = InputMethodManager::class.java.getDeclaredField("mNextServedView")
+            mNextServedView.isAccessible=true
+            mNextServedView.set(im,null)
+
+            var mServedView = InputMethodManager::class.java.getDeclaredField("mServedView")
+            mServedView.isAccessible = true
+            mServedView.set(im,null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 
@@ -228,5 +259,12 @@ class MainActivity : AppCompatActivity() {
         continuousAnimation.playSequentially(scaleAndMove, bounce)
 
         continuousAnimation.start()
+    }
+
+
+    fun test(){}
+    fun startActivityMethod5(view: View) {
+        HookUtil.initProvider(this);
+
     }
 }

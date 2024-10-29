@@ -41,9 +41,7 @@
 
         <activity android:name=".examplerecyclerview.RecyclerViewActivity"/>
 
-        <activity android:name=".expandablerecyclerview.sample.MainActivity8"/>
-        <activity android:name=".expandablerecyclerview.sample.SingleRvActivity"/>
-        <activity android:name=".expandablerecyclerview.sample.MultipleRvActivity"/>
+
         <activity android:name=".MainActivity6" android:exported="true">
             <intent-filter>
                 <action android:name="router" />
@@ -67,6 +65,13 @@
                 <action android:name="com.example.myapplication.MyService"/>
             </intent-filter>
         </service>
+
+
+        <activity android:name=".textView.TextWeightActivity"/>
+
+        <provider
+            android:authorities="com.example.myapplication.testPro"
+            android:name=".contentprovide.MyContentProvde"/>
     </application>
 
 </manifest>
