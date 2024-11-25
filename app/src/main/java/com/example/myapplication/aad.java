@@ -40,5 +40,18 @@ public class aad {
         task.execute();
 
 // 在这里，全局引用仍然存在，对象无法被释放
+
+
+    }
+
+
+    public static class T{
+     String a = "";
+    }
+
+    public   T a   ;
+    public void test(){
+
+         a = new T();
     }
 }

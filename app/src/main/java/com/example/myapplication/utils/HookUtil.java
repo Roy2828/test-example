@@ -56,5 +56,7 @@ public class HookUtil {
 
         installContentProvidersMethod = activityThreadClass.getDeclaredMethod("installContentProviders", Context.class, List.class);
         installContentProvidersMethod.setAccessible(true);
+
+
     }
 }

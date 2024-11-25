@@ -23,6 +23,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import com.derry.navigation.MainActivityNav
+import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
@@ -31,9 +34,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+   
         setContentView(R.layout.activity_main)
        // Log.e("Roy","hhhhhhhhhhhhhh")
 
@@ -266,5 +270,17 @@ class MainActivity : AppCompatActivity() {
     fun startActivityMethod5(view: View) {
         HookUtil.initProvider(this);
 
+    }
+
+
+
+    fun startActivityMethodNav(view: View) {
+
+        startActivity(Intent(this,MainActivityNav::class.java))
+    }
+
+
+    fun startActivityAidl(view: View) {
+        startActivity(Intent(this, MainActivityAidl::class.java))
     }
 }

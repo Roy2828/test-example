@@ -11,12 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity5"/>
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".MainSplashActivity"  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
+
+        </activity>
+        <activity android:name=".MainActivity" android:exported="true">
+
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -60,18 +66,23 @@
 
 
         <service android:name=".aidls.MyServiceA"
+            android:process=":service_aidl"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.example.myapplication.MyService"/>
+                <action android:name="com.example.IMyService"/>
             </intent-filter>
         </service>
 
 
         <activity android:name=".textView.TextWeightActivity"/>
 
+        <activity android:name="com.derry.navigation.MainActivityNav"/>
+
         <provider
             android:authorities="com.example.myapplication.testPro"
             android:name=".contentprovide.MyContentProvde"/>
+
+        <activity android:name=".aidls.MainActivityAidl"/>
     </application>
 
 </manifest>

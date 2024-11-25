@@ -20,6 +20,7 @@ public class MyServiceA extends Service {
     private final IMyService.Stub mBinder = new IMyService.Stub() {
         @Override
         public String getMessage() {
+            //这个方法在 Binder:3206_3  这个线程池中调用
             return "Hello, this is a message from the service!";
         }
 

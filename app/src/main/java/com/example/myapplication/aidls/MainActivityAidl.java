@@ -49,8 +49,9 @@ public class MainActivityAidl extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_aidl);
-
-        bindService(new Intent("com.example.IMyService"), serviceConnection, BIND_AUTO_CREATE);
+      Intent intent =  new Intent("com.example.IMyService");
+         intent.setPackage("com.example.myapplication");
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
     @Override
