@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.aidls.MainActivityAidl
+import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
@@ -43,7 +44,7 @@ import java.io.File
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-   
+
         setContentView(R.layout.activity_main)
        // Log.e("Roy","hhhhhhhhhhhhhh")
 
@@ -288,6 +289,8 @@ class MainActivity : FragmentActivity() {
 
 
     fun startActivityAidl(view: View) {
-        startActivity(Intent(this, MainActivityAidl::class.java))
+        val intent =Intent(this, MainActivityAidl::class.java)
+        intent.putExtra("name",DataTest("Roy","test",10))
+        startActivity(intent)
     }
 }
