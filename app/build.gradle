@@ -92,8 +92,8 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.2'
     kapt 'com.alibaba:arouter-compiler:1.5.2'
 
-
-
+    implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
+ 
 /*    implementation   "ezy.arch:router:0.6.0"
     implementation   "ezy.arch:router-annotation:0.6.0"
     kapt   "ezy.arch:router-compiler:0.6.0"*/

@@ -3,10 +3,12 @@ package com.example.myapplication
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -24,6 +26,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
@@ -31,6 +34,9 @@ import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
 import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import kotlinx.android.synthetic.main.activity_main.*
+import me.jessyan.autosize.AutoSizeConfig
+import me.jessyan.autosize.onAdaptListener
+import me.jessyan.autosize.utils.ScreenUtils
 import java.io.File
 
 
@@ -107,6 +113,7 @@ class MainActivity : FragmentActivity() {
 
 
         startContinuousAnimation(iv)
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
