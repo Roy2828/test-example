@@ -89,7 +89,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="中文100"
-                        android:textFontWeight="100" />
+                        android:fontFamily="@font/ali_mama_fangyuan_900"
+                        android:textFontWeight="900" />
 
                     <com.example.myapplication.textView.FontWeightTextView
                         style="@style/TextStyle"
@@ -213,7 +214,9 @@
                         style="@style/CustomTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ali_mama_fangyuan_900"
                         android:text="自定义900"
+                        android:textSize="28sp"
                         app:textFontWeight="900" />
                 </LinearLayout>
 
