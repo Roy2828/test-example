@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/ali_mama_fangyuan_ti_vf_thin"
         android:textStyle="normal"
-        android:textFontWeight="500"
+        android:textFontWeight="900"
         />
 
 

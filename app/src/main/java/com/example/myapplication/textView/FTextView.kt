@@ -2,6 +2,7 @@ package com.example.myapplication.textView
 
 import android.content.Context
 import android.graphics.Typeface
+import android.graphics.fonts.FontVariationAxis
 import android.os.Build
 import android.util.AttributeSet
 import android.widget.TextView
@@ -38,7 +39,7 @@ class FTextView  @JvmOverloads constructor(
 
     fun initView(){
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // 高版本使用 fontVariationSettings
             val type =   when(mFontWeight){
                 100 ->   ResourcesCompat.getFont(context, R.font.ali_mama_fangyuan_100)
@@ -53,6 +54,17 @@ class FTextView  @JvmOverloads constructor(
                 else -> ResourcesCompat.getFont(context, R.font.ali_mama_fangyuan_500)
             }
             typeface = type
+        }*/
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val weightAxis = FontVariationAxis("wght", mFontWeight.toFloat())
+            val fontVariationAxis = arrayOf(weightAxis)
+            paint.setFontVariationSettings(
+                FontVariationAxis.toFontVariationSettings(
+                    fontVariationAxis
+                )
+            )
+
         }
 
     }
