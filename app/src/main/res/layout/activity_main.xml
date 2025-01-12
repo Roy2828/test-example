@@ -79,6 +79,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv6"/>
 
+    <EditText
+        android:id="@+id/et_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv7"
+        />
+
 
     <TextView
         android:id="@+id/tv3"

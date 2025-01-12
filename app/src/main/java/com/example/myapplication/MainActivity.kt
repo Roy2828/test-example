@@ -12,9 +12,12 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.text.Editable
+import android.text.InputFilter
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -114,6 +117,44 @@ class MainActivity : FragmentActivity() {
 
 
         startContinuousAnimation(iv)
+        testRe()
+    }
+
+
+    fun testRe(){
+       // 待做： 1.密码正则  请使用数字、符号、大小写字母中任意三种组合
+       // 2. 验证码输入框背景 VerificationCodeView这个类需要layoutInflater  EditText(mContext);
+       // 3.登录tab选项间距问题   MySimplePagerTitleView 这个类改padding
+
+/*        正则
+        ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[0-9a-zA-Z\W_]{8,20}$
+        (?=.*\d): 至少包含一个数字
+        (?=.*[a-z]): 至少包含一个小写字母
+        (?=.*[A-Z]): 至少包含一个大写字母
+        (?=.*[\W_]): 至少包含一个特殊符号
+        [0-9a-zA-Z\W_]: 可以包含数字、大小写字母和特殊符号
+        {8,20}: 密码长度在8到20个字符之间*/
+
+    et_8.addTextChangedListener(object :TextWatcher{
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            s?.apply {
+                if (s.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W_])[0-9a-zA-Z\\W_]{8,20}\$".toRegex())) {
+
+                } else {
+                   Toast.makeText(this@MainActivity,"请输入数字、符号、大小写字母中任意三种组合",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+    })
 
     }
 
