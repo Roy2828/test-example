@@ -17,16 +17,21 @@
         app:layout_constraintBottom_toTopOf="@id/tv1"
         />
 
-    <TextView
+    <com.example.myapplication.textView.FTextView
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
+        android:textSize="38sp"
         android:onClick="startActivityMethod"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/ali_mama_fangyuan_ti_vf_thin"
+        android:textStyle="normal"
+        android:textFontWeight="900"
+        />
 
 
     <TextView
@@ -73,6 +78,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv6"/>
+
+    <EditText
+        android:id="@+id/et_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv7"
+        />
 
 
     <TextView

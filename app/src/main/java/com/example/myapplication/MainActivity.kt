@@ -1,33 +1,50 @@
 package com.example.myapplication
 
-
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.text.Editable
+import android.text.InputFilter
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.TextPaint
+import android.text.TextWatcher
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import kotlinx.android.synthetic.main.activity_main.*
-import razerdp.basepopup.BasePopupWindow
+import me.jessyan.autosize.AutoSizeConfig
+import me.jessyan.autosize.onAdaptListener
+import me.jessyan.autosize.utils.ScreenUtils
+import java.io.File
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -100,6 +117,44 @@ class MainActivity : AppCompatActivity() {
 
 
         startContinuousAnimation(iv)
+        testRe()
+    }
+
+
+    fun testRe(){
+       // 待做： 1.密码正则  请使用数字、符号、大小写字母中任意三种组合
+       // 2. 验证码输入框背景 VerificationCodeView这个类需要layoutInflater  EditText(mContext);
+       // 3.登录tab选项间距问题   MySimplePagerTitleView 这个类改padding
+
+/*        正则
+        ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[0-9a-zA-Z\W_]{8,20}$
+        (?=.*\d): 至少包含一个数字
+        (?=.*[a-z]): 至少包含一个小写字母
+        (?=.*[A-Z]): 至少包含一个大写字母
+        (?=.*[\W_]): 至少包含一个特殊符号
+        [0-9a-zA-Z\W_]: 可以包含数字、大小写字母和特殊符号
+        {8,20}: 密码长度在8到20个字符之间*/
+
+    et_8.addTextChangedListener(object :TextWatcher{
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            s?.apply {
+                if (s.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W_])[0-9a-zA-Z\\W_]{8,20}\$".toRegex())) {
+
+                } else {
+                   Toast.makeText(this@MainActivity,"请输入数字、符号、大小写字母中任意三种组合",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+    })
 
     }
 
@@ -178,8 +233,7 @@ class MainActivity : AppCompatActivity() {
     fun startActivityMethod(view: View) {
       //  startActivity(Intent(this,MainActivity2::class.java))
 
-     //  startActivity(Intent(this, TextWeightActivity::class.java))
-        DemoPopup(this).showPopupWindow()
+       startActivity(Intent(this, TextWeightActivity::class.java))
     }
 
     fun startActivityMethod2(view: View) {
@@ -279,13 +333,5 @@ class MainActivity : AppCompatActivity() {
         val intent =Intent(this, MainActivityAidl::class.java)
         intent.putExtra("name",DataTest("Roy","test",10))
         startActivity(intent)
-    }
-}
-
-class DemoPopup(context: Context?) : BasePopupWindow(context) {
-    init {
-        setContentView(R.layout.popup_normal)
-        // 设置View，建议使用createPopupById()，使BasePopup能正确读取xml参数
-        // setContentView(createPopupById(R.layout.popup_normal));
     }
 }
