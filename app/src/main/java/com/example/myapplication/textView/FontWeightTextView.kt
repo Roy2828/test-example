@@ -1,6 +1,7 @@
 package com.example.myapplication.textView
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.annotation.IntRange
 import androidx.appcompat.widget.AppCompatTextView
@@ -52,8 +53,12 @@ open class FontWeightTextView @JvmOverloads constructor(
         @IntRange(from = 1, to = 1000) weight: Int
     ) {
         mFontWeight = weight
-        TypefaceCompat.create(context, typeface, weight).let {
-            typeface = it
-        }
+      /*  TypefaceCompat.create(context, typeface, typeface.style).let {
+            typeface = Typeface.create(typeface,weight)
+
+        }*/
+
+        setTypeface( Typeface.create(typeface,weight))
+
     }
 }

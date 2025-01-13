@@ -55,6 +55,7 @@ class App :Application() {
 
             }
         })*/
+
     }
 
     override fun attachBaseContext(base: Context?) {

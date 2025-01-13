@@ -1,10 +1,12 @@
-package com.example.myapplication;
+package com.example.myapplication
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.window.SplashScreen
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * desc   :
@@ -13,13 +15,23 @@ import androidx.appcompat.app.AppCompatActivity;
  * author : Roy
  * version: 1.0
  */
-public class MainSplashActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+class MainSplashActivity : AppCompatActivity() {
 
-        setContentView(R.layout.main_splash_activity);
-         startActivity(new Intent(this,MainActivity.class));
-       finish();
+    private val viewModel by viewModels<MainSplashViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.main_splash_activity)
+        viewModel.liveData.observe(this){
+            startActivity(Intent(this@MainSplashActivity, MainActivity::class.java))
+            Log.e("Roy","跳转")
+            finish()
+        }
+
+        viewModel.start()
+
+
+   //     val binding = ActivityMainBinding.inflate(layoutInflater)
     }
 }

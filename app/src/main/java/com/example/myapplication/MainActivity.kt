@@ -1,47 +1,33 @@
 package com.example.myapplication
 
+
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
-import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import kotlinx.android.synthetic.main.activity_main.*
-import me.jessyan.autosize.AutoSizeConfig
-import me.jessyan.autosize.onAdaptListener
-import me.jessyan.autosize.utils.ScreenUtils
-import java.io.File
+import razerdp.basepopup.BasePopupWindow
 
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -192,7 +178,8 @@ class MainActivity : FragmentActivity() {
     fun startActivityMethod(view: View) {
       //  startActivity(Intent(this,MainActivity2::class.java))
 
-       startActivity(Intent(this, TextWeightActivity::class.java))
+     //  startActivity(Intent(this, TextWeightActivity::class.java))
+        DemoPopup(this).showPopupWindow()
     }
 
     fun startActivityMethod2(view: View) {
@@ -292,5 +279,13 @@ class MainActivity : FragmentActivity() {
         val intent =Intent(this, MainActivityAidl::class.java)
         intent.putExtra("name",DataTest("Roy","test",10))
         startActivity(intent)
+    }
+}
+
+class DemoPopup(context: Context?) : BasePopupWindow(context) {
+    init {
+        setContentView(R.layout.popup_normal)
+        // 设置View，建议使用createPopupById()，使BasePopup能正确读取xml参数
+        // setContentView(createPopupById(R.layout.popup_normal));
     }
 }

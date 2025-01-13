@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
 <!--
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -17,10 +17,31 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowSplashscreenContent">@drawable/ic_launcher_background</item>
+      <!--  <item name="android:windowSplashscreenContent">@drawable/background_splash</item>-->
+        <item name="android:windowSplashscreenContent">@drawable/background_splash</item>
+
+    </style>
+
+    <style name="Theme.Start" parent="AppBaseTheme">
+
+        <item name="android:background">@drawable/background_splash</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+
+    </style>
+
+    <style name="TransparentActivityTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
