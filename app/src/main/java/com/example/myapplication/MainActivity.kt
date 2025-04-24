@@ -30,6 +30,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
+import com.alibaba.android.arouter.launcher.ARouter
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.data.DataTest
@@ -330,8 +331,10 @@ class MainActivity : FragmentActivity() {
 
 
     fun startActivityAidl(view: View) {
-        val intent =Intent(this, MainActivityAidl::class.java)
+      /*  val intent =Intent(this, MainActivityAidl::class.java)
         intent.putExtra("name",DataTest("Roy","test",10))
-        startActivity(intent)
+        startActivity(intent)*/
+
+        ARouter.getInstance().build("/user/adil").withParcelable("dataTest", DataTest("Roy","test",10)).navigation()
     }
 }
