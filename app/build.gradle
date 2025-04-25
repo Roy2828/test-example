@@ -76,8 +76,8 @@ dependencies {
     implementation  "org.jetbrains.kotlin:kotlin-reflect:1.4.0" //可以使用fastjson解析kotlin bean
     implementation "androidx.core:core-ktx:1.5.0" //kotlin核心包
 
-   implementation  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-   implementation  "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+   implementation  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+   implementation  "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
    implementation  "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
    implementation  "androidx.lifecycle:lifecycle-compiler:2.2.0"
@@ -115,5 +115,8 @@ dependencies {
    // implementation "androidx.navigation:navigation-ui:$nav_version"
 
 
+
+    implementation 'com.github.cbeauty:beautyx-spi:1.0.0-SNAPSHOT'
+    kapt 'com.github.cbeauty:beautyx-spi-compiler:1.0.0-SNAPSHOT'
 
 }

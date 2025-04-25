@@ -35,6 +35,7 @@ import com.derry.navigation.MainActivityNav
 import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
+import com.example.myapplication.spi.SpiTest
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
 import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
@@ -336,5 +337,9 @@ class MainActivity : FragmentActivity() {
         startActivity(intent)*/
 
         ARouter.getInstance().build("/user/adil").withParcelable("dataTest", DataTest("Roy","test",10)).navigation()
+    }
+
+    fun startActivitySpi(view: View) {
+        tv8.text = SpiTest.test()
     }
 }
