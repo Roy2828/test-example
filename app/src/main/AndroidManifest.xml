@@ -34,7 +34,9 @@
 
 
         </activity>
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".MainActivity"
+            android:theme="@style/TranslucentFullScreenTheme2"
+            android:exported="true">
 
 
             <intent-filter>

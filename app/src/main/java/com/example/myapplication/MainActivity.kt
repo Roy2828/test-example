@@ -3,50 +3,34 @@ package com.example.myapplication
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.text.Editable
-import android.text.InputFilter
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.TextPaint
 import android.text.TextWatcher
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
 import com.alibaba.android.arouter.launcher.ARouter
 import com.derry.navigation.MainActivityNav
-import com.example.myapplication.aidls.MainActivityAidl
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.spi.SpiTest
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
-import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import kotlinx.android.synthetic.main.activity_main.*
-import me.jessyan.autosize.AutoSizeConfig
-import me.jessyan.autosize.onAdaptListener
-import me.jessyan.autosize.utils.ScreenUtils
-import java.io.File
 
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -341,5 +325,32 @@ class MainActivity : FragmentActivity() {
 
     fun startActivitySpi(view: View) {
         tv8.text = SpiTest.test()
+
+        showMissingPermissionDialog("内容");
+    }
+
+
+    private fun showMissingPermissionDialog(
+        message: String,
+
+    ) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("哈哈哈哈")
+        builder.setMessage(message)
+        // 拒绝, 退出应用
+        builder.setNegativeButton("取消",
+            DialogInterface.OnClickListener { dialog, which ->
+
+
+            })
+
+        builder.setPositiveButton("确定",
+            DialogInterface.OnClickListener { dialog, which ->
+
+                //checkDrawOverlayPermission();
+            })
+
+        builder.setCancelable(false)
+        builder.show()
     }
 }
