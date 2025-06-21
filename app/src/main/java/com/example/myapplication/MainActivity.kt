@@ -17,6 +17,8 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,10 +26,9 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
-import com.example.myapplication.spi.SpiTest
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.utils.HookUtil
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        startContinuousAnimation(iv)
+        startContinuousAnimation(findViewById<ImageView>(R.id.iv))
         testRe()
     }
 
@@ -121,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         [0-9a-zA-Z\W_]: 可以包含数字、大小写字母和特殊符号
         {8,20}: 密码长度在8到20个字符之间*/
 
-    et_8.addTextChangedListener(object :TextWatcher{
+    findViewById<EditText>(R.id.et_8).addTextChangedListener(object :TextWatcher{
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
         }
@@ -324,7 +325,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startActivitySpi(view: View) {
-        tv8.text = SpiTest.test()
+
 
         showMissingPermissionDialog("内容");
     }

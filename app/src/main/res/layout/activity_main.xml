@@ -17,6 +17,26 @@
         app:layout_constraintBottom_toTopOf="@id/tv1"
         />
 
+
+    <View
+        android:id="@+id/view_splash"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:background="@drawable/table_gray"
+        app:layout_constraintTop_toTopOf="@id/tv1"
+        app:layout_constraintBottom_toBottomOf="@id/tv1"
+        app:layout_constraintStart_toEndOf="@id/tv1"
+        />
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/right"
+        app:layout_constraintTop_toTopOf="@id/view_splash"
+        app:layout_constraintBottom_toBottomOf="@id/view_splash"
+        app:layout_constraintStart_toEndOf="@id/view_splash"
+        />
+
     <com.example.myapplication.textView.FTextView
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
@@ -109,13 +129,13 @@
 
         app:layout_constraintTop_toBottomOf="@id/tv2"
 
-        />
+        tools:ignore="MissingConstraints" />
 
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="200dp"
       android:background="@color/colorFocused"
-      >
+      tools:ignore="MissingConstraints">
 
   </LinearLayout>
 

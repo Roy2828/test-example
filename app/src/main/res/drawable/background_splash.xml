@@ -13,7 +13,7 @@
             android:layout_width="255dp"
             android:layout_height="66dp"
             android:gravity="center"
-            android:src="@mipmap/icon_logo" />
+            android:src="@drawable/brvah_sample_footer_loading" />
     </item>
 
 </layer-list>

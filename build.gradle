@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.6.20"
+    ext.kotlin_version = "1.8.22"
     repositories {
         google()
 
@@ -24,24 +24,18 @@ buildscript {
             url uri("$rootDir/repo")
         }
 
-        maven {
-            url 'https://clife-devops-maven.pkg.coding.net/repository/public-repository/maven-snapshots/'
-            credentials {
-                username "weihu.chen@clife.cn"
-                password "PSDtiger520.com"
-            }
-        }
+
 
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath "com.android.tools.build:gradle:7.3.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
 
-        classpath 'com.github.cbeauty:beautyx-transform-android-spi:1.0.1-SNAPSHOT'
+
         //classpath 'com.github.cbeauty:beautyx-transform-multiple-click:1.0.1-SNAPSHOT'
        // classpath 'com.github.cbeauty:beautyx-transform-ui-adapter:1.0.0-SNAPSHOT'
     }
@@ -66,13 +60,7 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
 
         maven { url 'https://www.jitpack.io' }
-        maven {
-            url 'https://clife-devops-maven.pkg.coding.net/repository/public-repository/maven-snapshots/'
-            credentials {
-                username "weihu.chen@clife.cn"
-                password "PSDtiger520.com"
-            }
-        }
+
 
         maven {
 //            url uri("/Users/ezy/.m2/repo/")

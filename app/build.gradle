@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
+
 apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.example.myapplication"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -116,9 +117,5 @@ dependencies {
    // implementation "androidx.navigation:navigation-fragment:$nav_version"
    // implementation "androidx.navigation:navigation-ui:$nav_version"
 
-
-
-    implementation 'com.github.cbeauty:beautyx-spi:1.0.0-SNAPSHOT'
-    kapt 'com.github.cbeauty:beautyx-spi-compiler:1.0.0-SNAPSHOT'
 
 }
