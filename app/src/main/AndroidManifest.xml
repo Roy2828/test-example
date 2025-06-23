@@ -106,6 +106,8 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="600"/>
+
+        <activity android:name=".BubbleViewActivity" android:exported="true"/>
     </application>
 
 </manifest>

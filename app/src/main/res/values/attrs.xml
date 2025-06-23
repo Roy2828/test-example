@@ -64,4 +64,12 @@
             <enum name="black" value="900" />"
         </attr>
     </declare-styleable>
+
+
+    <declare-styleable name="TypewriterTextView">
+        <attr name="tw_charInterval" format="integer"/>
+        <attr name="tw_delayStart" format="integer"/>
+        <attr name="tw_repeat" format="boolean"/>
+    </declare-styleable>
+
 </resources>

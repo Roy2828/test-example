@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_popup_arrow"
+        tools:rotation="180"
+        tools:translationX="75dp" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/bg_round_white_8dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="带箭头的Popup"
+        android:textColor="#CC2D3340"
+        android:textSize="16sp" />
+</FrameLayout>
+</layout>

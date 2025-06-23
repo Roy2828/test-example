@@ -354,4 +354,9 @@ class MainActivity : AppCompatActivity() {
         builder.setCancelable(false)
         builder.show()
     }
+
+    fun startActivityBubbleMethod(view: View) {
+
+        startActivity(Intent(this,BubbleViewActivity::class.java))
+    }
 }

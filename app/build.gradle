@@ -118,4 +118,9 @@ dependencies {
    // implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation 'com.github.Roy9609:FloatingX:v2.3.5.1'
 
+    implementation 'com.github.lguipeng:BubbleView:1.0.1'
+
+
+    implementation 'io.github.razerdp:BasePopup:3.2.1'
+
 }
