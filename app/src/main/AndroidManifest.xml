@@ -108,6 +108,8 @@
             android:value="600"/>
 
         <activity android:name=".BubbleViewActivity" android:exported="true"/>
+
+        <activity android:name=".upload.UploadActivity" android:exported="false"/>
     </application>
 
 </manifest>

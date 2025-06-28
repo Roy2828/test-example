@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityBubbleViewBinding
 import com.example.myapplication.pop.PopupArrow
-import kotlinx.android.synthetic.main.activity_bubble_view.*
+
 import razerdp.basepopup.BasePopupWindow
 
 
@@ -47,6 +47,6 @@ class BubbleViewActivity : AppCompatActivity() {
 
         mPopupArrow.setBlurBackgroundEnable(false)
         mPopupArrow.setPopupGravity(BasePopupWindow.GravityMode.ALIGN_TO_ANCHOR_SIDE, gravity )
-        mPopupArrow.showPopupWindow(view1)
+        mPopupArrow.showPopupWindow(findViewById(R.id.view1))
     }
 }

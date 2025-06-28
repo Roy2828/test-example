@@ -123,4 +123,8 @@ dependencies {
 
     implementation 'io.github.razerdp:BasePopup:3.2.1'
 
+
+    implementation 'com.qcloud.cos:cos-android:5.9.9'
+     
+
 }

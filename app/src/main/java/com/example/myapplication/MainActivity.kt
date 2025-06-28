@@ -27,6 +27,8 @@ import com.derry.navigation.MainActivityNav
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.textView.TextWeightActivity
+import com.example.myapplication.upload.Upload
+import com.example.myapplication.upload.UploadActivity
 import com.example.myapplication.utils.HookUtil
 
 
@@ -358,5 +360,9 @@ class MainActivity : AppCompatActivity() {
     fun startActivityBubbleMethod(view: View) {
 
         startActivity(Intent(this,BubbleViewActivity::class.java))
+    }
+
+    fun startUpload(view: View) {
+        UploadActivity.doIntent(this)
     }
 }
