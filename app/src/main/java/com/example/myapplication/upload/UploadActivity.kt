@@ -65,6 +65,11 @@ class UploadActivity :AppCompatActivity() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
+
+        val sessionToken = "3HPamzCP0EGVPLaZmrFlLu4cuJt5Q9Ra97d6fdf8481451edfb2225b30a515d2f3fQoA71gWNwMFQHYUcl0s5b9hcNJOz5o4lIaj52AWucSV_B-8SUTn9_vlVFrAtp9mmU4btpwKP68oI3rKqFF0x7vVgiBTqZFT9CM4YlSOgj2jOrnGQ-SLwX3E1QUmRGmmEK1Mz5hYl_4XTKU-VBKQd1HYg-bHk8GU3LqrA4CaDahMzANhvVBqbCsv1T6TUul_dXTcA6-HJtoXlmaKQVcnVltlItp1ZHCebylzTsbpZMFJQJnQgFxym8K3RZfu60eVLWFtUQulORW54_XA_a1W0uh8DUnhH_9bsttFRubAUKaHnIj0_kb0L8n_nK64AF01jluHAwlZ8eG-W87lsbP4lrEk9mKo8VrONDPKY-RBA8nkATSuS6GdwZwDKdEjV8cwSTWwEbTc3myMx--Pww9euTTYZIEPrNH9D5DuB3l-u2I_pRe5bsnRifVcwKY6WS52S6ndhoExFuxgsUPPsZGLdVhnKyFxDKYUO7Pji8ow4J1Il4TaAyD4fbNMTXQSq6UgP9YKe-2eXlOIE4HNnmI70eXtsaMecrgjaiUhS-W0aUcHLqQgxQDCX5fZxDwIKx92vjRgfVC8FKpgkfpx0ukBsWcME7IfH1YJNDcjB7JxHo"
+        val secretId = "AKID3L9yQf8wWPjN7C9fwOS5udtiIz-zFBY5oPGdXqVigE141ZJczbzYsnI627Wcglzf"
+        val secretKey = "yeY4bZHXQqn33nyANmFikmOJtJW+kW29nqv8/mg3OgI="
+
         val uploadSharding = UploadSharding.builder()
             .setSrcFile(srcFile!!)
             .setPartSize(2 * 1024 * 1024) // 设置分片大小
@@ -73,9 +78,9 @@ class UploadActivity :AppCompatActivity() {
             .setContext(context)
             .setServiceEnvironment(
                 "ap-guangzhou",
-                "tmpSecretId",
-                "tmpSecretKey",
-                "sessionToken",
+                secretId,
+                secretKey,
+                sessionToken,
                 1850838683,
                 1556182000L
             )

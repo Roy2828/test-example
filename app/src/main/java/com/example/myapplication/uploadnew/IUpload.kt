@@ -15,7 +15,7 @@ import com.tencent.cos.xml.model.CosXmlResult
 interface IUpload {
    fun startMultiUpload(onProgress: ((progress: Long, max: Long) -> Unit)?=null,
                         onSuccess: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult) -> Unit)?=null,
-                        onFail: ((cosXmlRequest: CosXmlRequest,
+                        onFail: ((cosXmlRequest: CosXmlRequest?,
                                   clientException: CosXmlClientException?,
                                   serviceException: CosXmlServiceException?) -> Unit)?=null)
 }

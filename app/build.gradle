@@ -125,6 +125,5 @@ dependencies {
 
 
     implementation 'com.qcloud.cos:cos-android:5.9.9'
-     
 
 }

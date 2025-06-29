@@ -15,17 +15,17 @@ import java.io.File
  *    version: 1.0
  */
 class UploadSharding private constructor(
-    private val srcFile: File?,
-    private val partSize: Int,
-    private val bucket: String?,
-    private val cosPath: String?,
-    private val context: Context?,
-    private val region: String?,
-    private val tmpSecretId: String?,
-    private val tmpSecretKey: String?,
-    private val sessionToken: String?,
-    private val expiredTime: Long,
-    private val startTime: Long
+    val srcFile: File,
+    val partSize: Int,
+    val bucket: String,   // 存储桶名称
+    val cosPath: String,   //对象在存储桶中的位置标识符，即对象键。 文件名字需要加上后缀  https://campus-test-1323116912.cos.ap-guangzhou.myqcloud.com/exampleobject
+    val context: Context?,
+    val region: String?,
+    val tmpSecretId: String?,
+    val tmpSecretKey: String?,
+    val sessionToken: String?,
+    val expiredTime: Long,
+    val startTime: Long
 ) {
 
     companion object {
@@ -41,8 +41,8 @@ class UploadSharding private constructor(
     class Builder {
         private var srcFile: File? = null
         private var partSize: Int = DEFAULT_PART_SIZE
-        private var bucket: String? = null
-        private var cosPath: String? = null
+        private var bucket: String = ""
+        private var cosPath: String = ""
         private var context: Context? = null
         private var region: String? = null
         private var tmpSecretId: String? = null
@@ -97,7 +97,7 @@ class UploadSharding private constructor(
 
         fun build(): UploadSharding {
             return UploadSharding(
-                srcFile,
+                srcFile?: throw IllegalArgumentException("Source file cannot be null"),
                 partSize,
                 bucket,
                 cosPath,
@@ -119,7 +119,7 @@ class UploadSharding private constructor(
         onProgress: ((progress: Long, max: Long) -> Unit)? = null,
         onSuccess: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult) -> Unit)? = null,
         onFail: ((
-            cosXmlRequest: CosXmlRequest,
+            cosXmlRequest: CosXmlRequest?,
             clientException: CosXmlClientException?,
             serviceException: CosXmlServiceException?
         ) -> Unit)? = null
@@ -129,7 +129,7 @@ class UploadSharding private constructor(
     }
 
     private fun getSplitUpload(): IUpload {
-        return splitUpload ?: SplitUpload(srcFile!!, partSize, bucket!!, cosPath!!)
+        return splitUpload ?: SplitUpload(this)
     }
 
     private fun initializeServiceEnvironment() {
