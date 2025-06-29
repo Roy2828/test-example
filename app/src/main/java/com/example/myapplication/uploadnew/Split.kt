@@ -1,6 +1,7 @@
 package com.example.myapplication.uploadnew
 
 import android.util.Log
+import android.util.SparseArray
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.ceil
@@ -28,6 +29,8 @@ class Split constructor(private val uploadSharding: UploadSharding) {
     private val atomicIntegerError: AtomicInteger = AtomicInteger(0);
 
     private val recordAllRequestsCompleted = AtomicInteger(0) //记录所有请求是否都完成不管成功失败
+
+    private val requestSplitUploads :SparseArray<RequestSplitUpload> = SparseArray<RequestSplitUpload>() //存储每个分片的上传请求
 
     private fun reset() {
         atomicIntegerSuccess.getAndSet(0) //重置
@@ -108,7 +111,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
     }
 
     private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,) {
-        RequestSplitUpload(
+       val requestUpload =   RequestSplitUpload(
             uploadSharding,
             eTags,
             onSuccessListener = { cosXmlRequest, result ->
@@ -119,7 +122,8 @@ class Split constructor(private val uploadSharding: UploadSharding) {
                 errorCount()
                 outcome()
             })
-            .uploadPartRequest(partNumber, fromOffset, to,uploadId)
+        requestUpload.uploadPartRequest(partNumber, fromOffset, to,uploadId)
+        requestSplitUploads.put(partNumber,requestUpload) //存储每个分片的上传请求
     }
 
 
@@ -128,6 +132,16 @@ class Split constructor(private val uploadSharding: UploadSharding) {
         if (count == 0) {
             countDownLatch.countDown()
         }
+    }
+
+
+    //取消当前文件上传的所有分片上传请求
+      fun cancelAllSplitUploads() {
+        for (i in 0 until requestSplitUploads.size()) {
+            val requestSplitUpload = requestSplitUploads.valueAt(i)
+            requestSplitUpload.cancelRequest()
+        }
+        requestSplitUploads.clear() //清空所有请求
     }
 
 
