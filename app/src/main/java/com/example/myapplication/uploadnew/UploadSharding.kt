@@ -128,6 +128,11 @@ class UploadSharding private constructor(
         splitUpload.startMultiUpload(onProgress, onSuccess, onFail)
     }
 
+
+    fun cancel(){
+        getSplitUpload().cancel()
+    }
+
     private fun getSplitUpload(): IUpload {
         return splitUpload ?: SplitUpload(this)
     }

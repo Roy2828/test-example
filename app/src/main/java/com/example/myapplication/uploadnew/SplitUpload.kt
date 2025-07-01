@@ -44,6 +44,8 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
 
     private var job: Job? = null
 
+    private var split: Split? = null
+
 
 
     /**
@@ -56,6 +58,10 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
                                           serviceException: CosXmlServiceException?) -> Unit)?
     ) {
 
+        this.onProgressListener = onProgress
+        this.onSuccessListener = onSuccess
+        this.onFailListener = onFail
+
 
         val initMultipartUploadRequest: InitMultipartUploadRequest =
             InitMultipartUploadRequest(uploadSharding.bucket, uploadSharding.cosPath)
@@ -65,7 +71,7 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
                     // 分片上传的 uploadId
                     uploadId = (result as InitMultipartUploadResult)
                         .initMultipartUpload.uploadId
-                    start(onProgress, onSuccess, onFail) // 开始分片上传
+                    start(onProgress) // 开始分片上传
                 }
 
                 // 如果您使用 kotlin 语言来调用，请注意回调方法中的异常是可空的，否则不会回调 onFail 方法，即：
@@ -93,15 +99,8 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
 
 
 
-    private fun start(onProgress: ((progress: Long, max: Long) -> Unit)?=null,
-                      onSuccess: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult) -> Unit)?=null,
-                      onFail: ((cosXmlRequest: CosXmlRequest?,
-                                clientException: CosXmlClientException?,
-                                serviceException: CosXmlServiceException?) -> Unit)?=null){
-        this.onProgressListener = onProgress
-        this.onSuccessListener = onSuccess
-        this.onFailListener = onFail
-        job?.cancel()
+    private fun start(onProgress: ((progress: Long, max: Long) -> Unit)?=null){
+        cancel()
         job = launch {
             try {
                 if (isActive) {
@@ -111,6 +110,7 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                split?.cancelAllSplitUploads()
             }
         }
     }
@@ -118,8 +118,8 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
 
 
     private suspend fun splitUpload(onProgress: ((progress: Long, max: Long) -> Unit)?=null){
-        Split(uploadSharding)
-            .splitUpload(uploadId,onProgress, completeMultiUpload = {
+        split = Split(uploadSharding)
+        split!!.splitUpload(uploadId,onProgress, completeMultiUpload = {
                 // 所有分片上传完成后，调用 completeMultiUpload 方法来完成分片上传任务
                 completeMultiUpload(it)
             }, errorMultiUpload = {
@@ -165,6 +165,12 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
             })
 
         //.cssg-snippet-body-end
+    }
+
+
+
+    override fun cancel(){
+        job?.cancel()
     }
 
 }

@@ -94,9 +94,13 @@ class UploadActivity :AppCompatActivity() {
             println("Upload Success: ${result.accessUrl}")
         }, onFail = { cosXmlRequest, clientException, serviceException ->
             // 上传失败的回调
+            runOnUiThread {
+                findViewById<TextView>(R.id.tvUrl).text = "上传失败"
+            }
             println("Upload Failed: ${clientException?.message ?: serviceException?.message}")
         }, onProgress = { progress, max ->
             // 上传进度的回调
+            //TODO 还需要增加功能
             println("Upload Progress: $progress / $max")
         })
 

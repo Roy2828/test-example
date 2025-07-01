@@ -18,6 +18,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
     private val eTags: MutableMap<Int, String> = HashMap()
 
 
+
     private var onProgressListener: ((progress: Long, max: Long) -> Unit)? =
         null    //进度是所有分片同时上传的总进度
 
@@ -98,7 +99,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
     }
 
 
-    fun await(waitEnd: () -> Unit, waitError: () -> Unit) {
+    private fun await(waitEnd: () -> Unit, waitError: () -> Unit) {
         try {
             countDownLatch.await()
             waitEnd()

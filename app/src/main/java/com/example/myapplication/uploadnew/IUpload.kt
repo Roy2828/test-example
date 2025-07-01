@@ -18,4 +18,6 @@ interface IUpload {
                         onFail: ((cosXmlRequest: CosXmlRequest?,
                                   clientException: CosXmlClientException?,
                                   serviceException: CosXmlServiceException?) -> Unit)?=null)
+
+    fun cancel()
 }
