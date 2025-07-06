@@ -30,7 +30,7 @@ import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.upload.Upload
 import com.example.myapplication.upload.UploadActivity
 import com.example.myapplication.utils.HookUtil
-
+import com.example.myapplication.xunfei.SpeakActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -364,5 +364,9 @@ class MainActivity : AppCompatActivity() {
 
     fun startUpload(view: View) {
         UploadActivity.doIntent(this)
+    }
+
+    fun speakMethod(view: View) {
+        SpeakActivity.startActivity(this)
     }
 }

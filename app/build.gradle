@@ -55,6 +55,12 @@ android {
             storePassword 'lxw123456'
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -125,5 +131,10 @@ dependencies {
 
 
     implementation 'com.qcloud.cos:cos-android:5.9.9'
+
+    implementation files('libs/Msc.jar')
+// ExoPlayer 核心库
+    implementation 'androidx.media3:media3-exoplayer:1.0.0'
+
 
 }

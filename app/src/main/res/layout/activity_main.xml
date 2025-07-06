@@ -155,6 +155,17 @@
 
         tools:ignore="OnClick" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="讯飞语音合成"
+        android:id="@+id/tv11"
+        android:onClick="speakMethod"
+        tools:ignore="OnClick"
+        app:layout_constraintBottom_toTopOf="@id/tv10"
+        />
+
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="200dp"
