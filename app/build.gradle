@@ -63,6 +63,12 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
    // implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -137,4 +143,7 @@ dependencies {
     implementation 'androidx.media3:media3-exoplayer:1.0.0'
 
 
+
+    implementation files('libs/fastjson-1.1.46.android.jar')
+    implementation files ('libs/nuisdk-release.aar')
 }
