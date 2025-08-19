@@ -1,5 +1,6 @@
 package com.example.myapplication.uploadnew
 
+import android.util.Log
 import com.tencent.qcloud.core.auth.BasicLifecycleCredentialProvider
 import com.tencent.qcloud.core.auth.QCloudLifecycleCredentials
 import com.tencent.qcloud.core.auth.SessionQCloudCredentials
@@ -11,7 +12,7 @@ import com.tencent.qcloud.core.common.QCloudClientException
  *    author : Roy
  *    version: 1.0
  */
-class ServerCredentialProvider : BasicLifecycleCredentialProvider() {
+abstract class ServerCredentialProvider : BasicLifecycleCredentialProvider() {
 
    var tmpSecretId: String? = null
    var tmpSecretKey: String? = null
@@ -37,15 +38,24 @@ class ServerCredentialProvider : BasicLifecycleCredentialProvider() {
         val startTime = 1556182000L //临时密钥有效起始时间，单位是秒*/
 
         // 最后返回临时密钥信息对象
-        return SessionQCloudCredentials(
-            tmpSecretId, tmpSecretKey,
-            sessionToken, startTime, expiredTime
+
+        val credentials =  sessionQCloudCredentials()
+        setEnvironment(
+            credentials.secretId,
+            credentials.secretKey,
+            credentials.token,
+            credentials.expiredTime,
+            credentials.startTime
         )
+        return  credentials
 
     }
 
 
-    fun setEnvironment(
+   abstract fun sessionQCloudCredentials():SessionQCloudCredentials
+
+
+   private fun setEnvironment(
         tmpSecretId: String?,
         tmpSecretKey: String?,
         sessionToken: String?,
@@ -58,4 +68,5 @@ class ServerCredentialProvider : BasicLifecycleCredentialProvider() {
         this.expiredTime = expiredTime
         this.startTime = startTime
     }
+
 }

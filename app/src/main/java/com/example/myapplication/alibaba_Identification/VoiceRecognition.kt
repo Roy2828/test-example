@@ -1,3 +1,4 @@
+/*
 package com.example.myapplication.alibaba_Identification
 
 import android.Manifest
@@ -29,12 +30,14 @@ import java.io.IOException
 import java.io.OutputStream
 import java.util.concurrent.LinkedBlockingQueue
 
+*/
 /**
  *    desc   :
  *    date   : 2025/7/2 13:52
  *    author : Roy
  *    version: 1.0
- */
+ *//*
+
 class VoiceRecognition : CoroutineScope by MainScope() , INativeNuiCallback{
 
     private val context get() = SpeechTranscriberManager.getInstance().context;
@@ -75,9 +78,11 @@ class VoiceRecognition : CoroutineScope by MainScope() , INativeNuiCallback{
     }
 
     private fun startDialog(): Boolean {
-        /*
+        */
+/*
          * 首先，录音权限动态申请
-         * */
+         * *//*
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 检查该权限是否已经获取
             val i = ContextCompat.checkSelfPermission(this, permissions.get(0))
@@ -300,7 +305,9 @@ class VoiceRecognition : CoroutineScope by MainScope() , INativeNuiCallback{
             setButtonState("cancelButton", false)
             mStopping = false
             // 此处也可重新启动录音模块
-        } else if (event == Constants.NuiEvent.EVENT_DIALOG_EX) { /* unused */
+        } else if (event == Constants.NuiEvent.EVENT_DIALOG_EX) { */
+/* unused *//*
+
             LogX.i("dialog extra message = " + asrResult?.asrResult)
         }
     }
@@ -453,4 +460,4 @@ class VoiceRecognition : CoroutineScope by MainScope() , INativeNuiCallback{
 
 
 
-}
+}*/

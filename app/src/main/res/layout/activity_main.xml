@@ -166,9 +166,47 @@
         app:layout_constraintBottom_toTopOf="@id/tv10"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="超拟人语音合成"
+        android:id="@+id/tv12"
+        android:onClick="speakSuperMethod"
+        app:layout_constraintBottom_toTopOf="@id/tv11"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_web"
+        android:text="web"
+        app:layout_constraintBottom_toTopOf="@id/tv12"
+        android:onClick="webClick"
+        tools:ignore="OnClick" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_bot"
+        android:text="机器人"
+        app:layout_constraintBottom_toTopOf="@id/tv_web"
+        android:onClick="botClickMethod"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ble"
+        android:text="检测"
+        app:layout_constraintBottom_toTopOf="@id/tv_bot"
+        android:onClick="bleClickMethod"
+        tools:ignore="OnClick" />
+
   <LinearLayout
       android:layout_width="800dp"
-      android:layout_height="200dp"
+      android:layout_height="100dp"
       android:background="@color/colorFocused"
       tools:ignore="MissingConstraints">
 

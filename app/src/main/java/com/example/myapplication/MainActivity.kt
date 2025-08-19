@@ -24,12 +24,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.derry.navigation.MainActivityNav
+import com.example.myapplication.ble.BleActivity
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
+import com.example.myapplication.speak.ui.SpeakSuperPersonifiedActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.upload.Upload
 import com.example.myapplication.upload.UploadActivity
 import com.example.myapplication.utils.HookUtil
+import com.example.myapplication.web.WebViewActivity
 import com.example.myapplication.xunfei.SpeakActivity
 
 
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         testServer()
+
        /*  var retrofit = Retrofit.Builder().baseUrl("http://www.baidu.com")
              .build()
 
@@ -368,5 +372,23 @@ class MainActivity : AppCompatActivity() {
 
     fun speakMethod(view: View) {
         SpeakActivity.startActivity(this)
+    }
+
+    fun speakSuperMethod(view: View) {
+        SpeakSuperPersonifiedActivity.doIntent(this)
+
+    }
+
+
+    fun webClick(view: View) {
+        WebViewActivity.doIntent(this)
+    }
+
+    fun botClickMethod(view: View) {
+        TestBotActivity.doIntent(this)
+    }
+
+    fun bleClickMethod(view: View) {
+        BleActivity.doIntent(this)
     }
 }

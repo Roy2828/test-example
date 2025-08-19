@@ -21,11 +21,7 @@ class UploadSharding private constructor(
     val cosPath: String,   //对象在存储桶中的位置标识符，即对象键。 文件名字需要加上后缀  https://campus-test-1323116912.cos.ap-guangzhou.myqcloud.com/exampleobject
     val context: Context?,
     val region: String?,
-    val tmpSecretId: String?,
-    val tmpSecretKey: String?,
-    val sessionToken: String?,
-    val expiredTime: Long,
-    val startTime: Long
+    val credentialProvider: ServerCredentialProvider // 临时密钥提供者
 ) {
 
     companion object {
@@ -45,11 +41,8 @@ class UploadSharding private constructor(
         private var cosPath: String = ""
         private var context: Context? = null
         private var region: String? = null
-        private var tmpSecretId: String? = null
-        private var tmpSecretKey: String? = null
-        private var sessionToken: String? = null
-        private var expiredTime: Long = 0
-        private var startTime: Long = 0
+        private lateinit var credentialProvider: ServerCredentialProvider
+
 
         fun setSrcFile(srcFile: File): Builder {
             this.srcFile = srcFile
@@ -80,18 +73,11 @@ class UploadSharding private constructor(
 
         fun setServiceEnvironment(
             region: String?,
-            tmpSecretId: String?,
-            tmpSecretKey: String?,
-            sessionToken: String?,
-            expiredTime: Long,
-            startTime: Long
+            credentialProvider: ServerCredentialProvider,
         ): Builder {
             this.region = region
-            this.tmpSecretId = tmpSecretId
-            this.tmpSecretKey = tmpSecretKey
-            this.sessionToken = sessionToken
-            this.expiredTime = expiredTime
-            this.startTime = startTime
+            this.credentialProvider = credentialProvider
+
             return this
         }
 
@@ -103,11 +89,7 @@ class UploadSharding private constructor(
                 cosPath,
                 context,
                 region,
-                tmpSecretId,
-                tmpSecretKey,
-                sessionToken,
-                expiredTime,
-                startTime
+                credentialProvider
             ).apply {
                 initializeServiceEnvironment()
             }
@@ -140,7 +122,7 @@ class UploadSharding private constructor(
     private fun initializeServiceEnvironment() {
         UploadConfig.getInstance().init(context)
         UploadConfig.getInstance().initServiceEnvironment(
-            region, tmpSecretId, tmpSecretKey, sessionToken, expiredTime, startTime
+            region, credentialProvider
         )
     }
 

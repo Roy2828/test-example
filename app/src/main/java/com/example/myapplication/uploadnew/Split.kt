@@ -1,7 +1,9 @@
 package com.example.myapplication.uploadnew
 
+import android.os.Build
 import android.util.Log
 import android.util.SparseArray
+import androidx.annotation.RequiresApi
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.ceil
@@ -32,6 +34,9 @@ class Split constructor(private val uploadSharding: UploadSharding) {
     private val recordAllRequestsCompleted = AtomicInteger(0) //记录所有请求是否都完成不管成功失败
 
     private val requestSplitUploads :SparseArray<RequestSplitUpload> = SparseArray<RequestSplitUpload>() //存储每个分片的上传请求
+
+
+    private val deBouncer = CoroutineDebouncer() //用于防抖处理
 
     private fun reset() {
         atomicIntegerSuccess.getAndSet(0) //重置
@@ -80,7 +85,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
 
                 val to = from + currentPartSize
 
-                uploadPart(partNumber, from, to,uploadId)  //需要等待for循环里面的所有分片全部上传  TODO 需要开启协程
+                uploadPart(partNumber, from, to,uploadId,totalSize)  //需要等待for循环里面的所有分片全部上传  TODO 需要开启协程
             }
 
             await(waitEnd = {
@@ -111,13 +116,28 @@ class Split constructor(private val uploadSharding: UploadSharding) {
         Log.e("roy", "初始化完毕")
     }
 
-    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,) {
+
+    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long, uploadId: String?, totalSize:Long) {
        val requestUpload =   RequestSplitUpload(
             uploadSharding,
             eTags,
             onSuccessListener = { cosXmlRequest, result ->
                 successCount()
                 outcome()
+            },
+            onProgressSplit = { mapProgress ->
+
+                deBouncer.delaySend {
+                    var totalSplitProgress: Long = 0
+                    mapProgress?.map{
+                        val part = it.value
+                        val progress = part.progress
+                        totalSplitProgress += progress
+                    }
+                    onProgressListener?.invoke(totalSplitProgress, totalSize) //更新总进度
+                }
+
+
             },
             onFailListener = { cosXmlRequest, clientException, serviceException ->
                 errorCount()

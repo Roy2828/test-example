@@ -94,6 +94,14 @@
 
 
 
-
+    <style name="CustomNoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 自定义属性 -->
+        <!-- 设置窗口背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 启用半透明效果 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 移除窗口内容覆盖层 -->
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
 </resources>

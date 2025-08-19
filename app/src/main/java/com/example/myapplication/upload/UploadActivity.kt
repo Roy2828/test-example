@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
 import com.example.myapplication.TestService
+import com.example.myapplication.uploadnew.ServerCredentialProvider
 import com.example.myapplication.uploadnew.UploadSharding
+import com.tencent.qcloud.core.auth.SessionQCloudCredentials
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.io.File
@@ -78,11 +80,16 @@ class UploadActivity :AppCompatActivity() {
             .setContext(context)
             .setServiceEnvironment(
                 "ap-guangzhou",
-                secretId,
-                secretKey,
-                sessionToken,
-                1850838683,
-                1556182000L
+                object :ServerCredentialProvider() {
+                    override fun sessionQCloudCredentials(): SessionQCloudCredentials {
+                        //秘钥过期会自动来这里获取新的秘钥
+
+                        return SessionQCloudCredentials(
+                            secretId, secretKey, sessionToken,
+                            1850838683, 1556182000L
+                        )
+                    }
+                }
             )
             .build()
 

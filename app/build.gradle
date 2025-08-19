@@ -140,10 +140,17 @@ dependencies {
 
     implementation files('libs/Msc.jar')
 // ExoPlayer 核心库
-    implementation 'androidx.media3:media3-exoplayer:1.0.0'
+   // implementation 'androidx.media3:media3-exoplayer:1.0.0'
 
 
 
     implementation files('libs/fastjson-1.1.46.android.jar')
     implementation files ('libs/nuisdk-release.aar')
+
+
+
+    implementation files('libs/SparkChain.aar')
+    implementation 'com.hjq:xxpermissions:8.2'
+
+    implementation 'com.lzy.net:okgo:3.0.4'
 }

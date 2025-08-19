@@ -24,7 +24,8 @@ class RequestSplitUpload constructor(
     private val onSuccessListener:((cosXmlRequest: CosXmlRequest, result: CosXmlResult)->Unit)?=null,
     private val onFailListener:((cosXmlRequest: CosXmlRequest,
                      clientException: CosXmlClientException?,
-                     serviceException: CosXmlServiceException?)->Unit)?=null
+                     serviceException: CosXmlServiceException?)->Unit)?=null,
+    private val onProgressSplit:((Map<Int, SplitProgressBean>?)->Unit)?=null
 ) {
 
 
@@ -42,12 +43,12 @@ class RequestSplitUpload constructor(
      * 上传一个分片
      */
 
-    fun uploadPartRequest(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,){
+    fun uploadPartRequest(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,mapProgress: Map<Int, SplitProgressBean>? = null) {
         atomicIntegerErrorCount.getAndSet(0)
-        uploadPart(partNumber, fromOffset, to,uploadId)
+        uploadPart(partNumber, fromOffset, to,uploadId,mapProgress)
     }
 
-    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,) {
+    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,mapProgress: Map<Int, SplitProgressBean>? = null) {
         //.cssg-snippet-body-start:[upload-part]
         // 存储桶名称，由bucketname-appid 组成，appid必须填入，可以在COS控制台查看存储桶名称。 https://console.cloud.tencent.com/cos5/bucket
 
@@ -59,6 +60,12 @@ class RequestSplitUpload constructor(
         uploadPartRequest?.setProgressListener(object : CosXmlProgressListener {
             override fun onProgress(progress: Long, max: Long) {
                 // todo Do something to update progress...
+                mapProgress?.apply {
+                   val part =  this[partNumber] ?: SplitProgressBean(0,0)
+                    part.progress = progress
+                    part.max = max
+                    onProgressSplit?.invoke(mapProgress)
+                }
             }
         })
 

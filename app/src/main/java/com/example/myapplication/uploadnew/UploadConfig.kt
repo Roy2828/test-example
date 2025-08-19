@@ -16,9 +16,7 @@ class UploadConfig private constructor() {
 
     private var context: Application? = null
     private var cosXmlService: CosXmlService? = null
-    private val serverCredentialProvider: ServerCredentialProvider by lazy {
-        ServerCredentialProvider()
-    }
+
 
     companion object {
         @Volatile
@@ -48,11 +46,7 @@ class UploadConfig private constructor() {
 
 
     //token过期需要重新初始化
-    fun initServiceEnvironment(region: String?, tmpSecretId: String?,
-        tmpSecretKey: String?,
-        sessionToken: String?,
-        expiredTime: Long,
-        startTime: Long
+    fun initServiceEnvironment(region: String?, credentialProvider: ServerCredentialProvider
     ) {
         // 存储桶region可以在COS控制台指定存储桶的概览页查看 https://console.cloud.tencent.com/cos5/bucket/ ，关于地域的详情见 https://cloud.tencent.com/document/product/436/6224
         //val region = "ap-guangzhou"
@@ -62,16 +56,9 @@ class UploadConfig private constructor() {
             .isHttps(true) // 使用 HTTPS 请求，默认为 HTTP 请求
             .builder()
 
-        serverCredentialProvider.setEnvironment(
-            tmpSecretId,
-            tmpSecretKey,
-            sessionToken,
-            expiredTime,
-            startTime
-        )
         cosXmlService = CosXmlService(
             context, serviceConfig,
-            serverCredentialProvider
+            credentialProvider
         )
     }
 
