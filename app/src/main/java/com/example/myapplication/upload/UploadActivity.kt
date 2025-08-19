@@ -15,6 +15,7 @@ import com.example.myapplication.uploadnew.UploadSharding
 import com.tencent.qcloud.core.auth.SessionQCloudCredentials
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import java.io.File
 import java.io.IOException
 import java.io.RandomAccessFile
@@ -109,6 +110,7 @@ class UploadActivity :AppCompatActivity() {
             // 上传进度的回调
             //TODO 还需要增加功能
             println("Upload Progress: $progress / $max")
+            findViewById<TextView>(R.id.tv_progress).text = "上传进度: ${progress / max}%"
         })
 
 

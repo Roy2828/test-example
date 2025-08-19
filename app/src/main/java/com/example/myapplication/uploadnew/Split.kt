@@ -128,13 +128,15 @@ class Split constructor(private val uploadSharding: UploadSharding) {
             onProgressSplit = { mapProgress ->
 
                 deBouncer.delaySend {
-                    var totalSplitProgress: Long = 0
-                    mapProgress?.map{
-                        val part = it.value
-                        val progress = part.progress
-                        totalSplitProgress += progress
+                  synchronized(this) {
+                      var totalSplitProgress: Long = 0
+                      mapProgress?.map{
+                          val part = it.value
+                          val progress = part.progress
+                          totalSplitProgress += progress
+                      }
+                      onProgressListener?.invoke(totalSplitProgress, totalSize) //更新总进度
                     }
-                    onProgressListener?.invoke(totalSplitProgress, totalSize) //更新总进度
                 }
 
 
