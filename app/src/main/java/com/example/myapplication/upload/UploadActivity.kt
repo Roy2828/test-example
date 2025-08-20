@@ -13,6 +13,8 @@ import com.example.myapplication.TestService
 import com.example.myapplication.uploadnew.ServerCredentialProvider
 import com.example.myapplication.uploadnew.UploadSharding
 import com.tencent.qcloud.core.auth.SessionQCloudCredentials
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
@@ -26,7 +28,7 @@ import java.io.RandomAccessFile
  *    author : Roy
  *    version: 1.0
  */
-class UploadActivity :AppCompatActivity() {
+class UploadActivity :AppCompatActivity() , CoroutineScope by MainScope() {
 
     companion object{
         fun doIntent(context:Context){
@@ -69,9 +71,9 @@ class UploadActivity :AppCompatActivity() {
             e.printStackTrace()
         }
 
-        val sessionToken = "3HPamzCP0EGVPLaZmrFlLu4cuJt5Q9Ra97d6fdf8481451edfb2225b30a515d2f3fQoA71gWNwMFQHYUcl0s5b9hcNJOz5o4lIaj52AWucSV_B-8SUTn9_vlVFrAtp9mmU4btpwKP68oI3rKqFF0x7vVgiBTqZFT9CM4YlSOgj2jOrnGQ-SLwX3E1QUmRGmmEK1Mz5hYl_4XTKU-VBKQd1HYg-bHk8GU3LqrA4CaDahMzANhvVBqbCsv1T6TUul_dXTcA6-HJtoXlmaKQVcnVltlItp1ZHCebylzTsbpZMFJQJnQgFxym8K3RZfu60eVLWFtUQulORW54_XA_a1W0uh8DUnhH_9bsttFRubAUKaHnIj0_kb0L8n_nK64AF01jluHAwlZ8eG-W87lsbP4lrEk9mKo8VrONDPKY-RBA8nkATSuS6GdwZwDKdEjV8cwSTWwEbTc3myMx--Pww9euTTYZIEPrNH9D5DuB3l-u2I_pRe5bsnRifVcwKY6WS52S6ndhoExFuxgsUPPsZGLdVhnKyFxDKYUO7Pji8ow4J1Il4TaAyD4fbNMTXQSq6UgP9YKe-2eXlOIE4HNnmI70eXtsaMecrgjaiUhS-W0aUcHLqQgxQDCX5fZxDwIKx92vjRgfVC8FKpgkfpx0ukBsWcME7IfH1YJNDcjB7JxHo"
-        val secretId = "AKID3L9yQf8wWPjN7C9fwOS5udtiIz-zFBY5oPGdXqVigE141ZJczbzYsnI627Wcglzf"
-        val secretKey = "yeY4bZHXQqn33nyANmFikmOJtJW+kW29nqv8/mg3OgI="
+        val sessionToken = "dPz0ibunE6wxT5oJvcvTb5UR2fBltQzaf30d4104ca1609720d3f2547900154b7wuX7UtY-sA5YL66OHEym9Lx2e41Y7AJo5ABkjPONjcayVj3Cqrj7LDuECEKQ8AbX6gYrcXF-lz4oj_Lr0-OrOZk_4reY6uK0OTUbviWW9PMm0wLIgfDOKwgKJU8Wy3hMKiHUnDiUVDU7uscEetYyLYnT2crPB_z8fNanBc7mRnhnT5DcDUxYCGhFNVqTXBkBpE7WisKHazY89NROKXzfgzIJ2_mI4jD8Lza5jMKN4EseBwl2N0QxJoc8NR-W7B23kskSyQ0PKH7IAIoU17Tfs7Rccg4Tg0M0B82Z-FlxKTYax-U0-aQHHe85KfDLDY6-igMfk-FB0ENlDjINdTzvYVdWgVj7pN_4XqNlNE2ghnjTmrwsC2qi7Vs7V4rSNdpjXh_nxHK-CNYn1Q42Hs_ed5iXiqgy8yqKcOYpAjCCRK7vAfNRXU39S8meU8CzL4TF9FM6FGgXmq6r52uyhBmIXd3IKSp-qkJCyh039S-YbhOEAJuK7QxiziHUP_Hvv4MvT3ZqDEF022Z17nkbErQ9eAZkQFmJDMFk2eGVQFbzmJK5cEFG4h7NF5_0fUiGmt7afhjymodLDUGQINRxSTjLK_SiHJ14naazIOh9-tiP3sk"
+        val secretId = "AKIDxYTAvGVNF-mtMoQUg-rCD4E-8r3ViVT5azAAej-fT0wp05rMMNVPlUxl-Qbkddp8"
+        val secretKey = "NYq9yCW4JjDMZSMiDqs+lGRyEkWCZDTIN8bM6myTCxQ="
 
         val uploadSharding = UploadSharding.builder()
             .setSrcFile(srcFile!!)
@@ -87,7 +89,7 @@ class UploadActivity :AppCompatActivity() {
 
                         return SessionQCloudCredentials(
                             secretId, secretKey, sessionToken,
-                            1850838683, 1556182000L
+                            1755591989, 1755600834
                         )
                     }
                 }
@@ -109,8 +111,11 @@ class UploadActivity :AppCompatActivity() {
         }, onProgress = { progress, max ->
             // 上传进度的回调
             //TODO 还需要增加功能
-            println("Upload Progress: $progress / $max")
-            findViewById<TextView>(R.id.tv_progress).text = "上传进度: ${progress / max}%"
+            println("Upload Progress: 上传进度: ${progress.toFloat() / max.toFloat()  * 100 }%")
+            runOnUiThread {
+                findViewById<TextView>(R.id.tv_progress).text = "上传进度: ${progress.toFloat() / max.toFloat()  * 100 }%"
+            }
+
         })
 
 

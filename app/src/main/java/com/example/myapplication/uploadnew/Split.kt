@@ -75,6 +75,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
 
             recordAllRequestsCompleted.getAndSet(partCount)//初始化记录
 
+           val  mapProgress: HashMap<Int, SplitProgressBean> =  HashMap()
             for (partNumber in 1..partCount) { // partNumber 从 1 到 partCount
                 var currentPartSize = batchSize
                 val from = (partNumber - 1) * batchSize // 计算当前分片的起始位置
@@ -85,7 +86,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
 
                 val to = from + currentPartSize
 
-                uploadPart(partNumber, from, to,uploadId,totalSize)  //需要等待for循环里面的所有分片全部上传  TODO 需要开启协程
+                uploadPart(partNumber, from, to,uploadId,totalSize,mapProgress)  //需要等待for循环里面的所有分片全部上传  TODO 需要开启协程
             }
 
             await(waitEnd = {
@@ -117,7 +118,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
     }
 
 
-    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long, uploadId: String?, totalSize:Long) {
+    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long, uploadId: String?, totalSize:Long,mapProgress: HashMap<Int, SplitProgressBean>? = null) {
        val requestUpload =   RequestSplitUpload(
             uploadSharding,
             eTags,
@@ -127,16 +128,14 @@ class Split constructor(private val uploadSharding: UploadSharding) {
             },
             onProgressSplit = { mapProgress ->
 
-                deBouncer.delaySend {
-                  synchronized(this) {
-                      var totalSplitProgress: Long = 0
-                      mapProgress?.map{
-                          val part = it.value
-                          val progress = part.progress
-                          totalSplitProgress += progress
-                      }
-                      onProgressListener?.invoke(totalSplitProgress, totalSize) //更新总进度
+                synchronized(this) {
+                    var totalSplitProgress: Long = 0
+                    mapProgress?.map{
+                        val part = it.value
+                        val progress = part.progress
+                        totalSplitProgress += progress
                     }
+                    onProgressListener?.invoke(totalSplitProgress, totalSize) //更新总进度
                 }
 
 
@@ -145,7 +144,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
                 errorCount()
                 outcome()
             })
-        requestUpload.uploadPartRequest(partNumber, fromOffset, to,uploadId)
+        requestUpload.uploadPartRequest(partNumber, fromOffset, to,uploadId,mapProgress)
         requestSplitUploads.put(partNumber,requestUpload) //存储每个分片的上传请求
     }
 

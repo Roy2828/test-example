@@ -43,12 +43,12 @@ class RequestSplitUpload constructor(
      * 上传一个分片
      */
 
-    fun uploadPartRequest(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,mapProgress: Map<Int, SplitProgressBean>? = null) {
+    fun uploadPartRequest(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,mapProgress: HashMap<Int, SplitProgressBean>? = null) {
         atomicIntegerErrorCount.getAndSet(0)
         uploadPart(partNumber, fromOffset, to,uploadId,mapProgress)
     }
 
-    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,mapProgress: Map<Int, SplitProgressBean>? = null) {
+    private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long,  uploadId: String?,mapProgress: HashMap<Int, SplitProgressBean>? = null) {
         //.cssg-snippet-body-start:[upload-part]
         // 存储桶名称，由bucketname-appid 组成，appid必须填入，可以在COS控制台查看存储桶名称。 https://console.cloud.tencent.com/cos5/bucket
 
@@ -64,6 +64,7 @@ class RequestSplitUpload constructor(
                    val part =  this[partNumber] ?: SplitProgressBean(0,0)
                     part.progress = progress
                     part.max = max
+                    this[partNumber] = part
                     onProgressSplit?.invoke(mapProgress)
                 }
             }
