@@ -1,9 +1,7 @@
 package com.example.myapplication.uploadnew
 
-import android.util.Log
 import com.tencent.cos.xml.exception.CosXmlClientException
 import com.tencent.cos.xml.exception.CosXmlServiceException
-import com.tencent.cos.xml.listener.CosXmlProgressListener
 import com.tencent.cos.xml.listener.CosXmlResultListener
 import com.tencent.cos.xml.model.CosXmlRequest
 import com.tencent.cos.xml.model.CosXmlResult
@@ -11,15 +9,11 @@ import com.tencent.cos.xml.model.`object`.CompleteMultiUploadRequest
 import com.tencent.cos.xml.model.`object`.CompleteMultiUploadResult
 import com.tencent.cos.xml.model.`object`.InitMultipartUploadRequest
 import com.tencent.cos.xml.model.`object`.InitMultipartUploadResult
-import com.tencent.cos.xml.model.`object`.UploadPartRequest
-import com.tencent.cos.xml.model.`object`.UploadPartResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.io.File
-import kotlin.math.ceil
 
 /**
  *    desc   :
@@ -27,15 +21,15 @@ import kotlin.math.ceil
  *    author : Roy
  *    version: 1.0
  */
-class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUpload ,CoroutineScope by MainScope(){
+class SplitUpload(private val uploadSharding: UploadSharding, private val uploadTask: UploadTask):IUpload ,CoroutineScope by MainScope(){
 
     private  var uploadId: String? = null
 
-    private var onProgressListener: ((progress: Long, max: Long) -> Unit)?=null    //进度是所有分片同时上传的总进度
-    private var onSuccessListener: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult) -> Unit)?=null  //所有分片上传后完成最后请求的回调
+    private var onProgressListener: ((progress: Long, max: Long,uploadTask:UploadTask) -> Unit)?=null    //进度是所有分片同时上传的总进度
+    private var onSuccessListener: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult,uploadTask:UploadTask) -> Unit)?=null  //所有分片上传后完成最后请求的回调
     private var onFailListener: ((cosXmlRequest: CosXmlRequest?,
                                   clientException: CosXmlClientException?,
-                                  serviceException: CosXmlServiceException?) -> Unit)?=null  //所有分片上传后完成最后请求的回调
+                                  serviceException: CosXmlServiceException?,uploadTask:UploadTask) -> Unit)?=null  //所有分片上传后完成最后请求的回调
 
 
 
@@ -51,11 +45,11 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
     /**
      * 启动分片上传
      */
-    override fun startMultiUpload(onProgress: ((progress: Long, max: Long) -> Unit)?,
-                                  onSuccess: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult) -> Unit)?,
+    override fun startMultiUpload(onProgress: ((progress: Long, max: Long,uploadTask:UploadTask) -> Unit)?,
+                                  onSuccess: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult,uploadTask:UploadTask) -> Unit)?,
                                   onFail: ((cosXmlRequest: CosXmlRequest?,
                                           clientException: CosXmlClientException?,
-                                          serviceException: CosXmlServiceException?) -> Unit)?
+                                          serviceException: CosXmlServiceException?,uploadTask:UploadTask) -> Unit)?
     ) {
 
         this.onProgressListener = onProgress
@@ -86,7 +80,7 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
                     } else {
                         serviceException?.printStackTrace()
                     }
-                    onFailListener?.invoke(cosXmlRequest, clientException, serviceException)
+                    onFailListener?.invoke(cosXmlRequest, clientException, serviceException,uploadTask)
                 }
             })
 
@@ -99,7 +93,7 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
 
 
 
-    private fun start(onProgress: ((progress: Long, max: Long) -> Unit)?=null){
+    private fun start(onProgress: ((progress: Long, max: Long,uploadTask:UploadTask) -> Unit)?=null){
         cancel()
         job = launch {
             try {
@@ -117,13 +111,13 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
 
 
 
-    private suspend fun splitUpload(onProgress: ((progress: Long, max: Long) -> Unit)?=null){
-        split = Split(uploadSharding)
+    private suspend fun splitUpload(onProgress: ((progress: Long, max: Long,uploadTask:UploadTask) -> Unit)?=null){
+        split = Split(uploadSharding,uploadTask)
         split!!.splitUpload(uploadId,onProgress, completeMultiUpload = {
                 // 所有分片上传完成后，调用 completeMultiUpload 方法来完成分片上传任务
                 completeMultiUpload(it)
             }, errorMultiUpload = {
-                onFailListener?.invoke(null,null,null)
+                onFailListener?.invoke(null,null,null,uploadTask)
             })
     }
 
@@ -144,7 +138,7 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
                 override fun onSuccess(cosXmlRequest: CosXmlRequest, result: CosXmlResult) {
                     val completeMultiUploadResult: CompleteMultiUploadResult =
                         result as CompleteMultiUploadResult
-                    onSuccessListener?.invoke(cosXmlRequest, result)
+                    onSuccessListener?.invoke(cosXmlRequest, result,uploadTask)
                 }
 
                 // 如果您使用 kotlin 语言来调用，请注意回调方法中的异常是可空的，否则不会回调 onFail 方法，即：
@@ -160,7 +154,7 @@ class SplitUpload constructor(private  val uploadSharding :UploadSharding):IUplo
                         serviceException?.printStackTrace()
                     }
 
-                    onFailListener?.invoke(cosXmlRequest, clientException, serviceException)
+                    onFailListener?.invoke(cosXmlRequest, clientException, serviceException,uploadTask)
                 }
             })
 

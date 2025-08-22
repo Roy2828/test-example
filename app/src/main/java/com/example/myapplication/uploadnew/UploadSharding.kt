@@ -15,7 +15,6 @@ import java.io.File
  *    version: 1.0
  */
 class UploadSharding private constructor(
-    val srcFile: File,
     val partSize: Int,
     val bucket: String,   // 存储桶名称
     val cosPath: String,   //对象在存储桶中的位置标识符，即对象键。 文件名字需要加上后缀  https://campus-test-1323116912.cos.ap-guangzhou.myqcloud.com/exampleobject
@@ -35,7 +34,6 @@ class UploadSharding private constructor(
     private val splitUpload: IUpload? = null
 
     class Builder {
-        private var srcFile: File? = null
         private var partSize: Int = DEFAULT_PART_SIZE
         private var bucket: String = ""
         private var cosPath: String = ""
@@ -44,10 +42,7 @@ class UploadSharding private constructor(
         private lateinit var credentialProvider: ServerCredentialProvider
 
 
-        fun setSrcFile(srcFile: File): Builder {
-            this.srcFile = srcFile
-            return this
-        }
+
 
         fun setPartSize(partSize: Int): Builder {
             if (partSize > DEFAULT_PART_SIZE) {
@@ -83,7 +78,6 @@ class UploadSharding private constructor(
 
         fun build(): UploadSharding {
             return UploadSharding(
-                srcFile?: throw IllegalArgumentException("Source file cannot be null"),
                 partSize,
                 bucket,
                 cosPath,
@@ -97,27 +91,6 @@ class UploadSharding private constructor(
     }
 
 
-    fun upload(
-        onProgress: ((progress: Long, max: Long) -> Unit)? = null,
-        onSuccess: ((cosXmlRequest: CosXmlRequest, result: CosXmlResult) -> Unit)? = null,
-        onFail: ((
-            cosXmlRequest: CosXmlRequest?,
-            clientException: CosXmlClientException?,
-            serviceException: CosXmlServiceException?
-        ) -> Unit)? = null
-    ) {
-        val splitUpload = getSplitUpload()
-        splitUpload.startMultiUpload(onProgress, onSuccess, onFail)
-    }
-
-
-    fun cancel(){
-        getSplitUpload().cancel()
-    }
-
-    private fun getSplitUpload(): IUpload {
-        return splitUpload ?: SplitUpload(this)
-    }
 
     private fun initializeServiceEnvironment() {
         UploadConfig.getInstance().init(context)

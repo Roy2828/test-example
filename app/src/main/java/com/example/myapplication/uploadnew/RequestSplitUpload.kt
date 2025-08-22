@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger
  *    version: 1.0
  */
 class RequestSplitUpload constructor(
+    private val uploadTask: UploadTask,
     private val uploadSharding: UploadSharding,
     private val eTags: MutableMap<Int, String>,
     private val onSuccessListener:((cosXmlRequest: CosXmlRequest, result: CosXmlResult)->Unit)?=null,
@@ -54,7 +55,7 @@ class RequestSplitUpload constructor(
 
           uploadPartRequest   = UploadPartRequest(
             uploadSharding.bucket, uploadSharding.cosPath,
-            partNumber, uploadSharding.srcFile.path, fromOffset, to, uploadId
+            partNumber, uploadTask.srcFile.path, fromOffset, to, uploadId
         )
 
         uploadPartRequest?.setProgressListener(object : CosXmlProgressListener {

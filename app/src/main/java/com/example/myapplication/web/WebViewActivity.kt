@@ -3,13 +3,17 @@ package com.example.myapplication.web
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Outline
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
+
 
 /**
  *    desc   :
@@ -33,6 +37,14 @@ class WebViewActivity: AppCompatActivity() {
         setContentView(R.layout.webview_activity)
 
       var webiew =  findViewById<WebView>(R.id.web)
+
+        val container = findViewById<FrameLayout>(R.id.webContainer)
+        container.setOutlineProvider(object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                outline.setRoundRect(0, 0, view.width, view.height, 16f)
+            }
+        })
+        container.setClipToOutline(true)
 
 
         webiew?.settings?.apply {
@@ -84,6 +96,9 @@ class WebViewActivity: AppCompatActivity() {
             allowFileAccess = false
         }
 
-          webiew  .loadUrl("http://10.6.33.20:10086/#/pages/index/index")
+          webiew.loadUrl("https://www.baidu.com")
+
+
+
     }
 }

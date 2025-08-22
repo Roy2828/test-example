@@ -15,13 +15,13 @@ import kotlin.math.ceil
  *    author : Roy
  *    version: 1.0
  */
-class Split constructor(private val uploadSharding: UploadSharding) {
+class Split constructor(private val uploadSharding: UploadSharding,private val uploadTask: UploadTask ) {
 
     private val eTags: MutableMap<Int, String> = HashMap()
 
 
 
-    private var onProgressListener: ((progress: Long, max: Long) -> Unit)? =
+    private var onProgressListener: ((progress: Long, max: Long,uploadTask:UploadTask) -> Unit)? =
         null    //进度是所有分片同时上传的总进度
 
     private val countDownLatch = CountDownLatch(1)  //用于阻塞主线程
@@ -57,7 +57,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
      */
     suspend fun splitUpload(
         uploadId: String?,
-        onProgress: ((progress: Long, max: Long) -> Unit)? = null,
+        onProgress: ((progress: Long, max: Long,uploadTask:UploadTask) -> Unit)? = null,
         completeMultiUpload: (MutableMap<Int, String>) -> Unit,
         errorMultiUpload: () -> Unit
     ) {
@@ -66,10 +66,10 @@ class Split constructor(private val uploadSharding: UploadSharding) {
         // 创建临时文件
         context?.let {
 
-            val totalSize: Long = uploadSharding.srcFile.length()
+            val totalSize: Long = uploadTask.srcFile.length()
             // 分片数量
             val partCount =
-                ceil(uploadSharding.srcFile.length() / uploadSharding.partSize.toDouble())
+                ceil(uploadTask.srcFile.length() / uploadSharding.partSize.toDouble())
                     .toInt()
             val batchSize = uploadSharding.partSize.toLong()
 
@@ -119,7 +119,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
 
 
     private fun uploadPart(partNumber: Int, fromOffset: Long, to: Long, uploadId: String?, totalSize:Long,mapProgress: HashMap<Int, SplitProgressBean>? = null) {
-       val requestUpload =   RequestSplitUpload(
+       val requestUpload =   RequestSplitUpload(uploadTask,
             uploadSharding,
             eTags,
             onSuccessListener = { cosXmlRequest, result ->
@@ -135,7 +135,7 @@ class Split constructor(private val uploadSharding: UploadSharding) {
                         val progress = part.progress
                         totalSplitProgress += progress
                     }
-                    onProgressListener?.invoke(totalSplitProgress, totalSize) //更新总进度
+                    onProgressListener?.invoke(totalSplitProgress, totalSize,uploadTask) //更新总进度
                 }
 
 
