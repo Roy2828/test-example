@@ -7,6 +7,7 @@ import android.graphics.Outline
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -23,6 +24,7 @@ import com.example.myapplication.R
  */
 class WebViewActivity: AppCompatActivity() {
 
+    var webiew:WebView?=null
 
     companion object{
 
@@ -36,9 +38,12 @@ class WebViewActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webview_activity)
 
-      var webiew =  findViewById<WebView>(R.id.web)
+
+        webiew = WebView(this.applicationContext)
 
         val container = findViewById<FrameLayout>(R.id.webContainer)
+
+        container.addView(webiew)
         container.setOutlineProvider(object : ViewOutlineProvider() {
             override fun getOutline(view: View, outline: Outline) {
                 outline.setRoundRect(0, 0, view.width, view.height, 16f)
@@ -96,8 +101,35 @@ class WebViewActivity: AppCompatActivity() {
             allowFileAccess = false
         }
 
-          webiew.loadUrl("https://www.baidu.com")
+          webiew?.loadUrl("https://www.baidu.com")
 
+
+
+    }
+
+
+
+
+    override fun onDestroy() {
+        webiew?.loadUrl("about:blank")
+        webiew?.parent?.let {
+            (it as ViewGroup).removeView(webiew)
+        }
+        webiew?.stopLoading()
+        webiew?.settings?.javaScriptEnabled = false
+        webiew?.clearHistory()
+        webiew?.clearCache(true)
+        webiew?.removeAllViewsInLayout()
+        webiew?.removeAllViews()
+        webiew?.webChromeClient = null
+        webiew?.destroy()
+        webiew?.apply {
+            WebViewReflectionUtils.resetWebViewDestroyedFlag(this)
+        }
+
+        webiew = null
+
+        super.onDestroy()
 
 
     }
