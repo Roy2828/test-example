@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Outline
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
@@ -39,7 +40,7 @@ class WebViewActivity: AppCompatActivity() {
         setContentView(R.layout.webview_activity)
 
 
-        webiew = WebView(this.applicationContext)
+        webiew = MyWebView(this.applicationContext)
 
         val container = findViewById<FrameLayout>(R.id.webContainer)
 
@@ -111,6 +112,7 @@ class WebViewActivity: AppCompatActivity() {
 
 
     override fun onDestroy() {
+        Log.e("Roy","WebViewActivity onDestroy"  )
         webiew?.loadUrl("about:blank")
         webiew?.parent?.let {
             (it as ViewGroup).removeView(webiew)
