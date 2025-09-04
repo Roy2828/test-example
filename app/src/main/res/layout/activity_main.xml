@@ -204,6 +204,15 @@
         android:onClick="bleClickMethod"
         tools:ignore="OnClick" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_anr"
+        android:text="anr"
+        app:layout_constraintBottom_toTopOf="@id/tv_ble"
+        android:onClick="anrClickMethod"
+        tools:ignore="OnClick" />
+
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="100dp"

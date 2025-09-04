@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.myapplication.matrix.AppMatrix
 import com.example.myapplication.utils.HookUtil
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
@@ -25,6 +26,8 @@ class App :Application() {
         ARouter.init(this);
 
         AutoSize.checkAndInit(this)
+
+        AppMatrix.initMatrix(this)
       /*  AutoSizeConfig.getInstance().setOnAdaptListener(object : onAdaptListener {
             override fun onAdaptBefore(target: Any?, activity: Activity?) {
                 //使用以下代码, 可以解决横竖屏切换时的屏幕适配问题

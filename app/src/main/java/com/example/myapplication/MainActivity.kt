@@ -27,6 +27,7 @@ import com.derry.navigation.MainActivityNav
 import com.example.myapplication.ble.BleActivity
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
+import com.example.myapplication.matrix.MatrixActivity
 import com.example.myapplication.speak.ui.SpeakSuperPersonifiedActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.upload.Upload
@@ -390,5 +391,9 @@ class MainActivity : AppCompatActivity() {
 
     fun bleClickMethod(view: View) {
         BleActivity.doIntent(this)
+    }
+
+    fun anrClickMethod(view: View) {
+        MatrixActivity.doIntent(this)
     }
 }

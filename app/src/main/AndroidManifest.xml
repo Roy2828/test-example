@@ -147,6 +147,7 @@
         <activity android:name=".TestBotActivity" android:exported="false"/>
 
         <activity android:name=".ble.BleActivity" android:exported="false"/>
+        <activity android:name=".matrix.MatrixActivity" android:exported="false"/>
     </application>
 
 </manifest>
