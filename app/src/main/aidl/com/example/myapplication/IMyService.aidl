@@ -10,5 +10,8 @@ import com.example.myapplication.IMyAidlInterface;
  */
 interface IMyService {
     String getMessage();
+    void initialize();
+    void startScan();
+    void stopScan();
     oneway void unwatchOnlineState(in int conversationType, in String[] targets, in IMyAidlInterface callback);
 }
