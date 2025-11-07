@@ -30,8 +30,8 @@ import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.matrix.MatrixActivity
 import com.example.myapplication.speak.ui.SpeakSuperPersonifiedActivity
 import com.example.myapplication.textView.TextWeightActivity
-import com.example.myapplication.upload.Upload
 import com.example.myapplication.upload.UploadActivity
+import com.example.myapplication.utils.AssetCacheHelper
 import com.example.myapplication.utils.HookUtil
 import com.example.myapplication.web.WebViewActivity
 import com.example.myapplication.xunfei.SpeakActivity
@@ -395,5 +395,21 @@ class MainActivity : AppCompatActivity() {
 
     fun anrClickMethod(view: View) {
         MatrixActivity.doIntent(this)
+    }
+
+    fun assetsClickMethod(view: View) {
+
+
+        // 将 assets/images/logo.png 拷贝到缓存
+        val cacheFilePath = AssetCacheHelper.copyImageFromAssetsToCache(this, "face.png")
+
+        if (cacheFilePath != null) {
+            // 从缓存路径加载Bitmap并设置到ImageView
+            val cachedBitmap = AssetCacheHelper.loadBitmapFromCache(cacheFilePath)
+            findViewById<ImageView>(R.id.iv).setImageBitmap(cachedBitmap)
+        } else {
+            // 处理拷贝失败的情况
+        }
+
     }
 }

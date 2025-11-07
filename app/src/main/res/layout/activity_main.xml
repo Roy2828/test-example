@@ -251,6 +251,15 @@
         android:onClick="anrClickMethod"
         tools:ignore="OnClick" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_assets"
+        android:text="资产"
+        app:layout_constraintBottom_toTopOf="@id/tv_anr"
+        android:onClick="assetsClickMethod"
+        />
+
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="100dp"
