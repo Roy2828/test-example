@@ -10,7 +10,6 @@ import androidx.core.animation.addListener
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
-import com.google.common.collect.ComparisonChain.start
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -43,7 +42,7 @@ class TypewriterTextView @JvmOverloads constructor(
                 if (currentIdx <= fullText.length) {
                     handler.postDelayed(this, charInterval)
                 } else if (repeat) {
-                    handler.postDelayed({ start() }, charInterval)
+                    handler.postDelayed({ startWithHandler(fullText) }, charInterval)
                 } else {
                     running = false
                 }

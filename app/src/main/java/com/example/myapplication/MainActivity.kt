@@ -27,6 +27,9 @@ import com.derry.navigation.MainActivityNav
 import com.example.myapplication.ble.BleActivity
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
+import com.example.myapplication.gif.GifTestActivity
+import com.example.myapplication.live.CrashDemoActivity
+import com.example.myapplication.lottie.LottieTestActivity
 import com.example.myapplication.matrix.MatrixActivity
 import com.example.myapplication.speak.ui.SpeakSuperPersonifiedActivity
 import com.example.myapplication.textView.TextWeightActivity
@@ -34,7 +37,9 @@ import com.example.myapplication.upload.UploadActivity
 import com.example.myapplication.utils.AssetCacheHelper
 import com.example.myapplication.utils.HookUtil
 import com.example.myapplication.web.WebViewActivity
+import com.example.myapplication.webp.WebpTestActivity
 import com.example.myapplication.xunfei.SpeakActivity
+import java.util.concurrent.Executors
 
 
 class MainActivity : AppCompatActivity() {
@@ -112,6 +117,7 @@ class MainActivity : AppCompatActivity() {
 
         startContinuousAnimation(findViewById<ImageView>(R.id.iv))
         testRe()
+        Executors.newCachedThreadPool()
     }
 
 
@@ -411,5 +417,11 @@ class MainActivity : AppCompatActivity() {
             // 处理拷贝失败的情况
         }
 
+    }
+
+    fun onLivedataClick(view: View) {
+        //CrashDemoActivity.start(this)
+      //  LottieTestActivity.start(this)
+        GifTestActivity.start(this)
     }
 }
