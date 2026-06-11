@@ -152,6 +152,7 @@
         <activity android:name=".webp.WebpTestActivity" android:exported="false"/>
         <activity android:name=".lottie.LottieTestActivity" android:exported="false"/>
         <activity android:name=".gif.GifTestActivity" android:exported="false"/>
+        <activity android:name=".AsyncInflationActivity" android:exported="false"/>
     </application>
 
 </manifest>

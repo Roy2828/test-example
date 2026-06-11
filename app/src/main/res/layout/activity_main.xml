@@ -263,6 +263,17 @@
 
 
     <TextView
+        android:id="@+id/tv_async_inflation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="异步加载布局"
+        android:textColor="#FF0000"
+        android:onClick="onAsyncInflationClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_livedata"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
         android:id="@+id/tv_livedata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

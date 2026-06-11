@@ -424,4 +424,8 @@ class MainActivity : AppCompatActivity() {
       //  LottieTestActivity.start(this)
         GifTestActivity.start(this)
     }
+
+    fun onAsyncInflationClick(view: View) {
+        AsyncInflationActivity.start(this)
+    }
 }
