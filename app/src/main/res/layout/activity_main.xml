@@ -283,6 +283,17 @@
         app:layout_constraintBottom_toTopOf="@id/tv_assets"
         />
 
+    <TextView
+        android:id="@+id/tv_swipe_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="滑动卡片测试"
+        android:textColor="#FF5722"
+        android:onClick="onSwipeCardClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_livedata"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="100dp"
