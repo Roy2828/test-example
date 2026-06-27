@@ -3,13 +3,11 @@ package com.example.myapplication
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.adapter.SingleAvatarAdapter
 import com.example.myapplication.model.GridItemData
-import com.example.myapplication.view.HorizontalSwipeableLayout
 import com.example.myapplication.view.TwoRowGridLayoutManager
 
 class SwipeableCardTestActivity : AppCompatActivity() {
@@ -47,13 +45,7 @@ class SwipeableCardTestActivity : AppCompatActivity() {
                 val rvGrid = itemView.findViewById<RecyclerView>(R.id.rv_grid)
                 rvGrid.layoutManager = TwoRowGridLayoutManager()
                 rvGrid.adapter = SingleAvatarAdapter(area.items)
-                rvGrid.isNestedScrollingEnabled = false
-
-                itemView.findViewById<HorizontalSwipeableLayout>(R.id.horizontal_swipe_layout)
-                    .onDismissListener = {
-                    Toast.makeText(this@SwipeableCardTestActivity,
-                        "已移除: ${area.name}", Toast.LENGTH_SHORT).show()
-                }
+                // 整体布局由 HorizontalScrollView 统一处理水平滑动
             }
 
             override fun getItemCount(): Int = areaData.size

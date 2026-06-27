@@ -1,34 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.myapplication.view.HorizontalSwipeableLayout
+<HorizontalScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/horizontal_swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:scrollbars="none">
 
-    <!-- 背景层（删除按钮区域） -->
-    <FrameLayout
-        android:id="@+id/fl_delete_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_delete_red">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_delete_white"
-            app:tint="@android:color/white" />
-    </FrameLayout>
-
-    <!-- 前景层：左侧信息卡片 + 右侧 RecyclerView 网格 -->
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/bg_card_green">
+      >
 
         <!-- 左侧固定区域 -->
         <LinearLayout
@@ -120,10 +105,11 @@
         <!-- 右侧网格区域 -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_grid"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="4dp" />
+            android:padding="4dp"
+            android:background="@drawable/bg_card_green"
+            />
     </LinearLayout>
 
-</com.example.myapplication.view.HorizontalSwipeableLayout>
+</HorizontalScrollView>
