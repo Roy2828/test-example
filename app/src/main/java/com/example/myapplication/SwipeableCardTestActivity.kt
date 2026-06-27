@@ -28,7 +28,7 @@ class SwipeableCardTestActivity : AppCompatActivity() {
             AreaData("草坪区", generateGridItems(12)),
             AreaData("广场区", generateGridItems(16)),
             AreaData("游乐区", generateGridItems(14)),
-            AreaData("休息区", generateGridItems(80)),
+            AreaData("休息区", generateGridItems(35)),
         )
 
         val adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
