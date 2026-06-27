@@ -1,12 +1,14 @@
 package com.example.myapplication.view
 
+import android.graphics.PointF
 import android.view.View
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 
 /**
  * 两行横向网格 LayoutManager
  * 数据对半拆分，两行数量相同（或第一行多1个）
- * 不自带横向滚动，由外层 HorizontalScrollView 统一处理滑动
+ * 支持内部横向滚动，数据较多时 RecyclerView 内部可左右滑动
  *
  * 例 36 条：
  *   Row 0: [1][2][3]...[18]
@@ -21,6 +23,7 @@ class TwoRowGridLayoutManager : RecyclerView.LayoutManager() {
     private var itemWidth = 0
     private var itemHeight = 0
     private var halfCount = 0
+    private var mScrollOffset = 0
 
     override fun generateDefaultLayoutParams() = RecyclerView.LayoutParams(
         RecyclerView.LayoutParams.WRAP_CONTENT,
@@ -33,6 +36,7 @@ class TwoRowGridLayoutManager : RecyclerView.LayoutManager() {
             return
         }
         detachAndScrapAttachedViews(recycler)
+        mScrollOffset = 0
 
         val sample = recycler.getViewForPosition(0)
         addView(sample)
@@ -42,7 +46,7 @@ class TwoRowGridLayoutManager : RecyclerView.LayoutManager() {
         detachAndScrapView(sample, recycler)
 
         halfCount = (state.itemCount + 1) / 2
-        fillAllItems(recycler, state)
+        fillVisibleItems(recycler, state)
     }
 
     override fun onLayoutCompleted(state: RecyclerView.State) {
@@ -60,13 +64,16 @@ class TwoRowGridLayoutManager : RecyclerView.LayoutManager() {
             return
         }
 
-        // 测量一个样本子项以获取尺寸
+        // 测量样本子项获取尺寸
         val sample = recycler.getViewForPosition(0)
         addView(sample)
         measureChildWithMargins(sample, 0, 0)
         val sampleWidth = getDecoratedMeasuredWidth(sample)
         val sampleHeight = getDecoratedMeasuredHeight(sample)
         detachAndScrapView(sample, recycler)
+
+        itemWidth = sampleWidth
+        itemHeight = sampleHeight
 
         val columns = (state.itemCount + 1) / 2
         val contentWidth = paddingLeft + columns * sampleWidth + paddingRight
@@ -89,35 +96,79 @@ class TwoRowGridLayoutManager : RecyclerView.LayoutManager() {
         }
 
         setMeasuredDimension(measuredWidth, measuredHeight)
-
-        // 保存到成员变量，供 layout 使用
-        itemWidth = sampleWidth
-        itemHeight = sampleHeight
     }
 
-    private fun fillAllItems(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
+    private fun calcTotalColumns(): Int = halfCount
+
+    private fun fillVisibleItems(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
         val count = state.itemCount
         for (i in 0 until count) {
             val left = getItemLeft(i)
             val top = getItemTop(i)
-            val child = recycler.getViewForPosition(i)
-            addView(child)
-            measureChildWithMargins(child, 0, 0)
-            layoutDecoratedWithMargins(child, left, top, left + itemWidth, top + itemHeight)
+            val screenLeft = left - mScrollOffset
+            val screenRight = screenLeft + itemWidth
+            if (screenRight >= 0 && screenLeft < width && getChildAtPosition(i) == null) {
+                val child = recycler.getViewForPosition(i)
+                addView(child)
+                measureChildWithMargins(child, 0, 0)
+                layoutDecoratedWithMargins(child, screenLeft, top, screenRight, top + itemHeight)
+            }
         }
     }
 
     private fun getItemLeft(position: Int): Int {
         val (_, col) = rowCol(position)
-        return paddingLeft + col * itemWidth
+        val contentWidth = paddingLeft + calcTotalColumns() * itemWidth + paddingRight
+        // 内容宽度小于 RecyclerView 可见宽度时居中显示
+        val centerOffset = if (contentWidth < width) ((width - contentWidth) / 2).coerceAtLeast(0) else 0
+        return paddingLeft + col * itemWidth + centerOffset
     }
 
     private fun getItemTop(position: Int): Int {
         val (row, _) = rowCol(position)
-        return paddingTop + row * itemHeight
+        val contentHeight = paddingTop + 2 * itemHeight + paddingBottom
+        val centerOffset = if (contentHeight < height) ((height - contentHeight) / 2).coerceAtLeast(0) else 0
+        return paddingTop + row * itemHeight + centerOffset
     }
 
-    override fun canScrollHorizontally() = false
+    override fun canScrollHorizontally() = true
+
+    override fun scrollHorizontallyBy(
+        dx: Int,
+        recycler: RecyclerView.Recycler,
+        state: RecyclerView.State
+    ): Int {
+        if (childCount == 0) return 0
+
+        val contentWidth = paddingLeft + calcTotalColumns() * itemWidth + paddingRight
+        val visibleWidth = width - paddingLeft - paddingRight
+        val maxScroll = (contentWidth - visibleWidth).coerceAtLeast(0)
+        val newOffset = (mScrollOffset + dx).coerceIn(0, maxScroll)
+        val actualDx = newOffset - mScrollOffset
+
+        if (actualDx != 0) {
+            mScrollOffset = newOffset
+            for (j in 0 until childCount) {
+                getChildAt(j)?.offsetLeftAndRight(-actualDx)
+            }
+            for (j in childCount - 1 downTo 0) {
+                val child = getChildAt(j) ?: continue
+                if (getDecoratedRight(child) < 0 || getDecoratedLeft(child) > width) {
+                    removeAndRecycleView(child, recycler)
+                }
+            }
+            fillVisibleItems(recycler, state)
+        }
+        return actualDx
+    }
+
+    private fun getChildAtPosition(position: Int): View? {
+        for (j in 0 until childCount) {
+            val child = getChildAt(j) ?: continue
+            if (getPosition(child) == position) return child
+        }
+        return null
+    }
 
     /**
      * 前 halfCount 个放第一行，剩余的放第二行
@@ -128,5 +179,34 @@ class TwoRowGridLayoutManager : RecyclerView.LayoutManager() {
         else 1 to (i - halfCount)
     }
 
+    override fun computeHorizontalScrollRange(state: RecyclerView.State): Int {
+        return paddingLeft + calcTotalColumns() * itemWidth + paddingRight
+    }
+
+    override fun computeHorizontalScrollExtent(state: RecyclerView.State): Int {
+        return width
+    }
+
+    override fun computeHorizontalScrollOffset(state: RecyclerView.State): Int {
+        return mScrollOffset
+    }
+
     override fun isAutoMeasureEnabled(): Boolean = false
+
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView,
+        state: RecyclerView.State,
+        position: Int
+    ) {
+        val scroller = object : LinearSmoothScroller(recyclerView.context) {
+            override fun computeScrollVectorForPosition(targetPosition: Int): PointF? {
+                val (_, col) = rowCol(targetPosition)
+                val targetX = paddingLeft + col * itemWidth
+                val dx = targetX - mScrollOffset
+                return PointF(dx.toFloat(), 0f)
+            }
+        }
+        scroller.targetPosition = position
+        startSmoothScroll(scroller)
+    }
 }
