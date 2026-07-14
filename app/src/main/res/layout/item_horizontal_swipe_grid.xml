@@ -85,22 +85,15 @@
             </LinearLayout>
 
             <!-- 添加按钮 -->
-            <FrameLayout
-                android:id="@+id/fl_add"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_add_button">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="+"
-                    android:textSize="20sp"
-                    android:textColor="#4CAF50" />
-            </FrameLayout>
+            <com.example.myapplication.view.GameRegionAddView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                />
         </LinearLayout>
+
+
 
         <!-- 右侧网格区域：weight=1 填满剩余可见区域，wrap_content 在内容超长时扩展 -->
         <androidx.recyclerview.widget.RecyclerView
@@ -109,7 +102,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
-            android:background="@drawable/bg_card_green"
+            android:background="@drawable/bg_card_purple"
             />
     </LinearLayout>
 
