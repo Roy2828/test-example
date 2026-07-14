@@ -117,7 +117,8 @@ dependencies {
 
    implementation  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
    implementation  "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
-   implementation  "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+   implementation  "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+   implementation  "androidx.activity:activity-ktx:1.4.0"
 
    implementation  "androidx.lifecycle:lifecycle-compiler:2.2.0"
     // alternately - if using Java8, use the following instead of lifecycle-compiler
@@ -127,6 +128,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
     implementation 'androidx.recyclerview:recyclerview:1.2.0' // 确保版本号是最新的或适合你项目的版本
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
 
     implementation 'com.gitee.zackratos:UltimateBarX:0.7.1'
@@ -175,6 +177,8 @@ dependencies {
 
     implementation files('libs/SparkChain.aar')
     implementation 'com.hjq:xxpermissions:8.2'
+
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
     implementation 'com.lzy.net:okgo:3.0.4'
 

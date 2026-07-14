@@ -263,6 +263,17 @@
 
 
     <TextView
+        android:id="@+id/tv_mvi_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MVI 架构测试"
+        android:textColor="#0000FF"
+        android:onClick="onMviTestClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_async_inflation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
         android:id="@+id/tv_async_inflation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -281,17 +292,6 @@
         android:textColor="#000000"
         android:onClick="onLivedataClick"
         app:layout_constraintBottom_toTopOf="@id/tv_assets"
-        />
-
-    <TextView
-        android:id="@+id/tv_swipe_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="滑动卡片测试"
-        android:textColor="#FF5722"
-        android:onClick="onSwipeCardClick"
-        app:layout_constraintBottom_toTopOf="@id/tv_livedata"
-        app:layout_constraintLeft_toLeftOf="parent"
         />
 
   <LinearLayout

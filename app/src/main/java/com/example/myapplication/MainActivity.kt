@@ -432,8 +432,4 @@ class MainActivity : AppCompatActivity() {
     fun onMviTestClick(view: View) {
         startActivity(Intent(this, com.example.myapplication.mvi.TestMviActivity::class.java))
     }
-
-    fun onSwipeCardClick(view: View) {
-        SwipeableCardTestActivity.doIntent(this)
-    }
 }

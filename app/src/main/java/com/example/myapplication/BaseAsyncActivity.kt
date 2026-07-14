@@ -31,7 +31,11 @@ abstract class BaseAsyncActivity : AppCompatActivity() {
             parent?.addView(view)
             
             // 通知子类布局已加载完成，可以开始初始化视图
-            onLayoutInflated(view)
+            try {
+                onLayoutInflated(view)
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 

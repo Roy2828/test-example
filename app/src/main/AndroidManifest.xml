@@ -154,7 +154,6 @@
         <activity android:name=".gif.GifTestActivity" android:exported="false"/>
         <activity android:name=".AsyncInflationActivity" android:exported="false"/>
         <activity android:name=".mvi.TestMviActivity" android:exported="true"/>
-        <activity android:name=".SwipeableCardTestActivity" android:exported="false"/>
     </application>
 
 </manifest>
