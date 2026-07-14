@@ -39,4 +39,12 @@
         android:layout_marginTop="20dp"
         />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddsdfssssffffffffffff"
+        android:background="@mipmap/bg_classmine_1"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
