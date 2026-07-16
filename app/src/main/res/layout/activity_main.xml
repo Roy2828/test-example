@@ -294,6 +294,15 @@
         app:layout_constraintBottom_toTopOf="@id/tv_assets"
         />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="viewpager"
+        android:onClick="onViewPagerClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_mvi_test"
+        />
+
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="100dp"

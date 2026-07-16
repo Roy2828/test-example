@@ -28,16 +28,14 @@ import com.example.myapplication.ble.BleActivity
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.gif.GifTestActivity
-import com.example.myapplication.live.CrashDemoActivity
-import com.example.myapplication.lottie.LottieTestActivity
 import com.example.myapplication.matrix.MatrixActivity
+import com.example.myapplication.plugin.demo.ViewPagerDemoActivity
 import com.example.myapplication.speak.ui.SpeakSuperPersonifiedActivity
 import com.example.myapplication.textView.TextWeightActivity
 import com.example.myapplication.upload.UploadActivity
 import com.example.myapplication.utils.AssetCacheHelper
 import com.example.myapplication.utils.HookUtil
 import com.example.myapplication.web.WebViewActivity
-import com.example.myapplication.webp.WebpTestActivity
 import com.example.myapplication.xunfei.SpeakActivity
 import java.util.concurrent.Executors
 
@@ -431,5 +429,9 @@ class MainActivity : AppCompatActivity() {
 
     fun onMviTestClick(view: View) {
         startActivity(Intent(this, com.example.myapplication.mvi.TestMviActivity::class.java))
+    }
+
+    fun onViewPagerClick(view: View) {
+        startActivity(Intent(this, ViewPagerDemoActivity::class.java))
     }
 }
