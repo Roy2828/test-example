@@ -3,48 +3,70 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_start"
-        android:text="开始"
+        android:text="BLE 测试"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始扫描"
+        android:padding="12dp"
+        android:background="@drawable/ble_button_bg"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         />
 
-
     <TextView
+        android:id="@+id/tv_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_stop"
-        android:text="结束"
+        android:text="停止扫描"
+        android:padding="12dp"
+        android:background="@drawable/ble_button_bg"
+        android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/tv_start"
         app:layout_constraintStart_toStartOf="@id/tv_start"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         />
 
-
-
     <TextView
+        android:id="@+id/tv_init"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_init"
         android:text="初始化"
+        android:padding="12dp"
+        android:background="@drawable/ble_button_bg"
+        android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/tv_stop"
         app:layout_constraintStart_toStartOf="@id/tv_stop"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         />
 
-
     <TextView
+        android:id="@+id/tv_gatt_queue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddsdfssssffffffffffff"
-        android:background="@mipmap/bg_classmine_1"
+        android:text="GATT 操作队列演示"
+        android:padding="12dp"
+        android:background="@drawable/ble_button_bg"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/tv_init"
+        app:layout_constraintStart_toStartOf="@id/tv_init"
+        android:layout_marginTop="24dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

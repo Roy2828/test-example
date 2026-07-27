@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clife_gait.ClifeGaitPlugin
 import com.example.myapplication.R
+import com.example.myapplication.ble.BleDeviceActivity
 
 /**
  *    desc   :
@@ -102,6 +103,10 @@ class BleActivity :AppCompatActivity() {
 
         findViewById<TextView>(R.id.tv_init).setOnClickListener {
             sendMessage(0)
+        }
+
+        findViewById<TextView>(R.id.tv_gatt_queue).setOnClickListener {
+            BleDeviceActivity.start(this)
         }
     }
 

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- 标题 -->
+        <TextView
+            android:id="@+id/tv_ble_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BLE GATT 操作队列演示"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 状态 -->
+        <TextView
+            android:id="@+id/tv_ble_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="状态: 未连接"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_title" />
+
+        <!-- 设备信息 -->
+        <TextView
+            android:id="@+id/tv_ble_device_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:text="暂无设备"
+            android:textSize="14sp"
+            android:textColor="#444444"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_status" />
+
+        <!-- 操作按钮区域 -->
+        <TextView
+            android:id="@+id/tv_ble_ops_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="操作控制"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_device_info" />
+
+        <!-- 扫描 -->
+        <Button
+            android:id="@+id/btn_ble_scan"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="扫描设备"
+            android:textAllCaps="false"
+            android:backgroundTint="#4CAF50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_ble_connect"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_ops_title"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 连接 -->
+        <Button
+            android:id="@+id/btn_ble_connect"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:text="连接设备"
+            android:textAllCaps="false"
+            android:backgroundTint="#2196F3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_ble_scan"
+            app:layout_constraintTop_toTopOf="@id/btn_ble_scan"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 发现服务 -->
+        <Button
+            android:id="@+id/btn_ble_discover"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="发现服务"
+            android:textAllCaps="false"
+            android:backgroundTint="#FF9800"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_ble_read"
+            app:layout_constraintTop_toBottomOf="@id/btn_ble_scan"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 读取 -->
+        <Button
+            android:id="@+id/btn_ble_read"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:text="读取特征"
+            android:textAllCaps="false"
+            android:backgroundTint="#9C27B0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_ble_discover"
+            app:layout_constraintTop_toTopOf="@id/btn_ble_discover"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 写入 -->
+        <Button
+            android:id="@+id/btn_ble_write"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="写入数据"
+            android:textAllCaps="false"
+            android:backgroundTint="#E91E63"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_ble_notify"
+            app:layout_constraintTop_toBottomOf="@id/btn_ble_discover"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 通知 -->
+        <Button
+            android:id="@+id/btn_ble_notify"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:text="开启通知"
+            android:textAllCaps="false"
+            android:backgroundTint="#00BCD4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_ble_write"
+            app:layout_constraintTop_toTopOf="@id/btn_ble_write"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- MTU -->
+        <Button
+            android:id="@+id/btn_ble_mtu"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="请求MTU(512)"
+            android:textAllCaps="false"
+            android:backgroundTint="#607D8B"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_ble_disconnect"
+            app:layout_constraintTop_toBottomOf="@id/btn_ble_write"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 断开 -->
+        <Button
+            android:id="@+id/btn_ble_disconnect"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:text="断开连接"
+            android:textAllCaps="false"
+            android:backgroundTint="#F44336"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_ble_mtu"
+            app:layout_constraintTop_toTopOf="@id/btn_ble_mtu"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <!-- 服务信息标题 -->
+        <TextView
+            android:id="@+id/tv_ble_service_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="服务与特征"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_ble_mtu" />
+
+        <!-- 服务信息 -->
+        <TextView
+            android:id="@+id/tv_ble_service_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:minHeight="100dp"
+            android:padding="12dp"
+            android:text="尚未发现服务"
+            android:textSize="12sp"
+            android:textColor="#444444"
+            android:typeface="monospace"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_service_title" />
+
+        <!-- 日志标题 -->
+        <TextView
+            android:id="@+id/tv_ble_log_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="操作日志"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_service_info" />
+
+        <!-- 日志 -->
+        <TextView
+            android:id="@+id/tv_ble_log"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:scrollbars="vertical"
+            android:text="等待操作..."
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:typeface="monospace"
+            android:lineSpacingExtra="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_log_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
