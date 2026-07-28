@@ -300,6 +300,16 @@
         android:layout_height="wrap_content"
         android:text="viewpager"
         android:onClick="onViewPagerClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_kotlin_select"
+        />
+
+    <TextView
+        android:id="@+id/tv_kotlin_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kotlin Select"
+        android:textColor="#E91E63"
+        android:onClick="onKotlinSelectClick"
         app:layout_constraintBottom_toTopOf="@id/tv_mvi_test"
         />
 

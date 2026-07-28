@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.derry.navigation.MainActivityNav
 import com.example.myapplication.ble.BleActivity
+import com.example.myapplication.ble.KotlinSelectActivity
 import com.example.myapplication.data.DataTest
 import com.example.myapplication.examplerecyclerview.RecyclerViewActivity
 import com.example.myapplication.gif.GifTestActivity
@@ -433,5 +434,9 @@ class MainActivity : AppCompatActivity() {
 
     fun onViewPagerClick(view: View) {
         startActivity(Intent(this, ViewPagerDemoActivity::class.java))
+    }
+
+    fun onKotlinSelectClick(view: View) {
+        startActivity(Intent(this, KotlinSelectActivity::class.java))
     }
 }
