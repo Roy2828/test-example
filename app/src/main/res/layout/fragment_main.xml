@@ -14,6 +14,7 @@
         android:layout_marginTop="64dp"
         android:padding="@dimen/fab_margin"
         android:text="@string/jump_single_rv"
+        android:background="@mipmap/img"
         android:textSize="18sp"/>
 
     <Button

@@ -339,6 +339,18 @@
         app:layout_constraintBottom_toTopOf="@id/tv_mvi_test"
         />
 
+    <TextView
+        android:id="@+id/tv_task_chain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="串行任务链取消测试"
+        android:textColor="#00BCD4"
+        android:onClick="onTaskChainClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_kotlin_select"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
   <LinearLayout
       android:layout_width="800dp"
       android:layout_height="100dp"

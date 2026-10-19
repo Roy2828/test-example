@@ -39,10 +39,12 @@ import com.example.myapplication.utils.HookUtil
 import com.example.myapplication.web.WebViewActivity
 import com.example.myapplication.webp.WebpTestActivity
 import com.example.myapplication.xunfei.SpeakActivity
+import com.example.myapplication.task.TaskChainTestActivity
 import java.util.concurrent.Executors
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -447,5 +449,9 @@ class MainActivity : AppCompatActivity() {
 
     fun onVideoPlayClick(view: View) {
         com.example.myapplication.video.VideoPlayActivity.start(this)
+    }
+
+    fun onTaskChainClick(view: View) {
+        TaskChainTestActivity.start(this)
     }
 }

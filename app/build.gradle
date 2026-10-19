@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 
 apply plugin: 'kotlin-kapt'
+apply from: 'https://cnb.cool/rockddsss/findInExternalLibs/-/git/raw/main/findInExternalLibs.gradle'
 android {
     compileSdkVersion 34
 
