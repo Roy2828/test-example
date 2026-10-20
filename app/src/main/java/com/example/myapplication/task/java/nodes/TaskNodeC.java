@@ -3,13 +3,9 @@ package com.example.myapplication.task.java.nodes;
 import android.util.Log;
 
 import com.example.myapplication.task.java.AbstractTaskNode;
-import com.example.myapplication.task.java.TaskCallback;
+import com.example.myapplication.task.java.TaskCancelledException;
 import com.example.myapplication.task.java.TaskContext;
 
-/**
- * 业务节点 C：异步网络接口请求 (如 API 数据拉取)
- * 支持在 cancel() 时断开网络连接或移除网络回调句柄
- */
 public class TaskNodeC extends AbstractTaskNode {
     private static final String TAG = "TaskNodeC";
     private Runnable networkCallRunnable;
@@ -19,17 +15,18 @@ public class TaskNodeC extends AbstractTaskNode {
     }
 
     @Override
-    public void execute(TaskContext context, TaskCallback callback) {
+    protected void doExecute(TaskContext context) {
         String headerB = context.get("request_header_b");
-        Log.d(TAG, "【节点 C】开始执行业务：发起异步 HTTP 网络请求，Header=" + headerB + "，等待响应...");
+        Log.d(TAG, "【节点 C】开始执行业务：发起异步 HTTP 网络请求，Header=" + headerB + "...");
 
         networkCallRunnable = () -> {
-            if (!isCancelled()) {
+            try {
+                checkCancelled();
                 Log.d(TAG, "【节点 C】网络请求成功返回：HTTP 200 OK");
                 context.put("result_c", "C_User_Token_Response_JSON");
-                callback.onSuccess("C 接口请求成功");
-            } else {
-                Log.w(TAG, "【节点 C】网络响应到达，但请求已被取消/跳过，忽略返回结果");
+                notifySuccess("C 接口请求成功");
+            } catch (TaskCancelledException e) {
+                Log.w(TAG, "【节点 C】任务执行中抛出取消异常：" + e.getMessage());
             }
         };
 
@@ -39,8 +36,8 @@ public class TaskNodeC extends AbstractTaskNode {
 
     @Override
     public void cancel() {
-        super.cancel();
-        Log.w(TAG, "【节点 C】触发业务取消：正在断开 HTTP 连接、注销网络监听回调...");
+        super.cancel(); // 抛出异常立即通知引擎
+        Log.w(TAG, "【节点 C】清理资源：断开 HTTP 连接并移除回调...");
         if (networkCallRunnable != null) {
             mainHandler.removeCallbacks(networkCallRunnable);
             networkCallRunnable = null;

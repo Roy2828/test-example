@@ -14,7 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 1. 顺序任务推进 (A -> B -> C -> D -> E -> F -> G -> H)
  * 2. 异步网络节点耗时等待与自动下一环节推进
  * 3. 异步网络节点被强行抢占/跳过 (例如: C在网络请求中，外部强行触发D，能够停止C并立即执行D及后续环节)
- * 4. 任意环节 (A/B/C/D/E/F/G/H等) 都可以被中断，中断后不再执行后续环节，并准确回调告知被中断的节点
+ * 4. 基于 TaskCancelledException 抛异常方式的【立即取消与退栈机制】：
+ *    任何环节 (A/B/C/D/E/F/G/H等) 都可以抛出 TaskCancelledException 实现立马取消，终止后续环节并精准回调给监听器。
  */
 public class TaskChainEngine {
     private static final String TAG = "TaskChainEngine";
@@ -125,43 +126,86 @@ public class TaskChainEngine {
             }
         });
 
-        node.execute(context, new TaskCallback() {
-            @Override
-            public void onSuccess(Object result) {
-                postToMainThread(() -> {
-                    // 如果该节点已取消或任务链已中断，忽略此回调
-                    if (isInterrupted.get() || !isRunning.get() || currentNode != node) {
-                        Log.d(TAG, "节点 [" + node.getId() + "] 回调成功但已被忽略(已中断/已跳转)");
-                        return;
-                    }
+        try {
+            node.execute(context, new TaskCallback() {
+                @Override
+                public void onSuccess(Object result) {
+                    postToMainThread(() -> {
+                        // 如果该节点已取消或任务链已中断，忽略此回调
+                        if (isInterrupted.get() || !isRunning.get() || currentNode != node) {
+                            Log.d(TAG, "节点 [" + node.getId() + "] 回调成功但已被忽略(已中断/已跳转)");
+                            return;
+                        }
 
-                    Log.d(TAG, "节点 [" + node.getId() + "] 执行成功，推进到下一个节点");
+                        Log.d(TAG, "节点 [" + node.getId() + "] 执行成功，推进到下一个节点");
 
-                    if (listener != null) {
-                        listener.onNodeSuccess(node, result);
-                    }
+                        if (listener != null) {
+                            listener.onNodeSuccess(node, result);
+                        }
 
-                    // 推进到下一个节点
-                    executeNode(index + 1);
-                });
-            }
+                        // 推进到下一个节点
+                        executeNode(index + 1);
+                    });
+                }
 
-            @Override
-            public void onError(Throwable throwable) {
-                postToMainThread(() -> {
-                    if (isInterrupted.get() || !isRunning.get() || currentNode != node) {
-                        return;
-                    }
+                @Override
+                public void onError(Throwable throwable) {
+                    postToMainThread(() -> {
+                        // 防御：如果当前节点已经被抢占跳转过，那么旧节点的任何回调或异常直接被丢弃
+                        if (currentNode != node) {
+                            Log.d(TAG, "节点 [" + node.getId() + "] 回调失败或抛出异常，但其已被抢占跳转，忽略之。");
+                            return;
+                        }
 
-                    isRunning.set(false);
-                    Log.e(TAG, "节点 [" + node.getId() + "] 执行失败: " + throwable.getMessage());
+                        // 如果抛出 TaskCancelledException 异常，说明触发了立即取消机制
+                        if (throwable instanceof TaskCancelledException) {
+                            TaskCancelledException cancelExp = (TaskCancelledException) throwable;
+                            TaskNode canceledNode = cancelExp.getNode() != null ? cancelExp.getNode() : node;
+                            String reason = cancelExp.getReason();
 
-                    if (listener != null) {
-                        listener.onChainError(node, throwable);
-                    }
-                });
-            }
-        });
+                            Log.w(TAG, "捕获到立即取消异常 TaskCancelledException！节点 [" + canceledNode.getId() + "] 触发立即中断退栈！");
+                            isInterrupted.set(true);
+                            isRunning.set(false);
+
+                            if (listener != null) {
+                                listener.onNodeInterrupted(canceledNode, reason);
+                            }
+                            return;
+                        }
+
+                        if (isInterrupted.get() || !isRunning.get() || currentNode != node) {
+                            return;
+                        }
+
+                        isRunning.set(false);
+                        Log.e(TAG, "节点 [" + node.getId() + "] 执行失败: " + throwable.getMessage());
+
+                        if (listener != null) {
+                            listener.onChainError(node, throwable);
+                        }
+                    });
+                }
+            });
+        } catch (TaskCancelledException e) {
+            Log.w(TAG, "同步捕获到 TaskCancelledException 立即取消异常，中断流程: " + e.getMessage());
+            isInterrupted.set(true);
+            isRunning.set(false);
+
+            postToMainThread(() -> {
+                if (listener != null) {
+                    listener.onNodeInterrupted(e.getNode() != null ? e.getNode() : node, e.getReason());
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "节点 [" + node.getId() + "] 同步抛出未知异常: " + e.getMessage());
+            isRunning.set(false);
+
+            postToMainThread(() -> {
+                if (listener != null) {
+                    listener.onChainError(node, e);
+                }
+            });
+        }
     }
 
     /**
@@ -213,10 +257,10 @@ public class TaskChainEngine {
 
         TaskNode nodeToInterrupt = currentNode;
         if (nodeToInterrupt != null) {
-            Log.w(TAG, "任务链在环节 [" + nodeToInterrupt.getId() + "] 被中断，原因: " + reason);
+            Log.w(TAG, "任务链在环节 [" + nodeToInterrupt.getId() + "] 被主动中断，原因: " + reason);
             nodeToInterrupt.cancel();
         } else {
-            Log.w(TAG, "任务链被中断，原因: " + reason);
+            Log.w(TAG, "任务链被主动中断，原因: " + reason);
         }
 
         postToMainThread(() -> {
