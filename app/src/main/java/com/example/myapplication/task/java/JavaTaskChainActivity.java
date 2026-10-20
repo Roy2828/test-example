@@ -7,16 +7,24 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.myapplication.R;
+import com.example.myapplication.task.java.nodes.TaskNodeA;
+import com.example.myapplication.task.java.nodes.TaskNodeB;
+import com.example.myapplication.task.java.nodes.TaskNodeC;
+import com.example.myapplication.task.java.nodes.TaskNodeD;
+import com.example.myapplication.task.java.nodes.TaskNodeE;
+import com.example.myapplication.task.java.nodes.TaskNodeF;
+import com.example.myapplication.task.java.nodes.TaskNodeG;
+import com.example.myapplication.task.java.nodes.TaskNodeH;
+
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Java 任务链验证 Activity
@@ -37,9 +45,10 @@ public class JavaTaskChainActivity extends AppCompatActivity implements ChainLis
     private TextView tvLog;
     private ScrollView scrollLog;
 
-    private Button btnStartChain;
-    private Button btnTriggerD;
-    private Button btnTriggerG;
+    private Button btnStartTest;
+    private Button btnStartTest2;
+    private Button btnStartCustom;
+
     private Button btnInterruptCurrent;
     private Button btnInterruptA;
     private Button btnInterruptB;
@@ -69,9 +78,9 @@ public class JavaTaskChainActivity extends AppCompatActivity implements ChainLis
         tvLog = findViewById(R.id.tv_log);
         scrollLog = findViewById(R.id.scroll_log);
 
-        btnStartChain = findViewById(R.id.btn_start_chain);
-        btnTriggerD = findViewById(R.id.btn_trigger_d);
-        btnTriggerG = findViewById(R.id.btn_trigger_g);
+        btnStartTest = findViewById(R.id.btn_start_chain_test);
+        btnStartTest2 = findViewById(R.id.btn_start_chain_test2);
+        btnStartCustom = findViewById(R.id.btn_start_chain_custom);
 
         btnInterruptCurrent = findViewById(R.id.btn_interrupt_current);
         btnInterruptA = findViewById(R.id.btn_interrupt_a);
@@ -86,34 +95,43 @@ public class JavaTaskChainActivity extends AppCompatActivity implements ChainLis
 
     private void initTaskEngine() {
         engine = new TaskChainEngine();
-        engine.setNodes(SimulatedTaskNodes.createSampleNodes());
         engine.setListener(this);
     }
 
     private void setupListeners() {
-        // 1. 启动任务链 (从 A 开始)
-        btnStartChain.setOnClickListener(v -> {
+        // 动态组合并执行 test() : A -> B -> C -> F
+        btnStartTest.setOnClickListener(v -> {
             appendLog("======================");
-            appendLog("【启动指令】启动任务链 A -> H");
-            engine.start();
+            appendLog("【启动指令】执行动态组合 test() : A -> B -> C -> F");
+            engine.start(Arrays.asList(
+                    new TaskNodeA(),
+                    new TaskNodeB(),
+                    new TaskNodeC(),
+                    new TaskNodeF()
+            ));
         });
 
-        // 2. 抢占运行 D (当 C 正在发起网络请求时，强行停止 C 并跳转到 D 执行)
-        btnTriggerD.setOnClickListener(v -> {
-            appendLog("【抢占指令】请求强行执行节点 D (若C正在请求则停止C)");
-            boolean success = engine.proceedToStep("D");
-            if (!success) {
-                Toast.makeText(this, "未找到节点 D", Toast.LENGTH_SHORT).show();
-            }
+        // 动态组合并执行 test2() : B -> C -> E -> G
+        btnStartTest2.setOnClickListener(v -> {
+            appendLog("======================");
+            appendLog("【启动指令】执行动态组合 test2() : B -> C -> E -> G");
+            engine.start(Arrays.asList(
+                    new TaskNodeB(),
+                    new TaskNodeC(),
+                    new TaskNodeE(),
+                    new TaskNodeG()
+            ));
         });
 
-        // 3. 抢占运行 G (当 F 正在发起网络请求时，强行停止 F 并跳转到 G 执行)
-        btnTriggerG.setOnClickListener(v -> {
-            appendLog("【抢占指令】请求强行执行节点 G (若F正在请求则停止F)");
-            boolean success = engine.proceedToStep("G");
-            if (!success) {
-                Toast.makeText(this, "未找到节点 G", Toast.LENGTH_SHORT).show();
-            }
+        // 随意乱序组合 : D -> H -> A
+        btnStartCustom.setOnClickListener(v -> {
+            appendLog("======================");
+            appendLog("【启动指令】执行动态乱序组合 : D -> H -> A");
+            engine.start(Arrays.asList(
+                    new TaskNodeD(),
+                    new TaskNodeH(),
+                    new TaskNodeA()
+            ));
         });
 
         // 4. 中断当前运行的环节

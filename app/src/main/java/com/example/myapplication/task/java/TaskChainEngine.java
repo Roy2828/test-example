@@ -67,13 +67,19 @@ public class TaskChainEngine {
     }
 
     /**
-     * 启动任务链，从第一个节点(Index 0 / Node A)开始顺序执行
+     * 启动任务链，按照传入的节点顺序动态编排并执行
+     * 传入的节点列表决定了当前这一次任务的执行顺序和节点数量。
+     *
+     * @param dynamicNodes 想要执行的动态节点集合，例如 Arrays.asList(A, C, F) 或 Arrays.asList(B, D, E)
      */
-    public synchronized void start() {
-        if (nodes.isEmpty()) {
-            Log.w(TAG, "任务链为空，无法启动");
+    public synchronized void start(List<TaskNode> dynamicNodes) {
+        if (dynamicNodes == null || dynamicNodes.isEmpty()) {
+            Log.w(TAG, "动态任务链为空，无法启动");
             return;
         }
+
+        // 每次启动用全新的节点集合替换旧的，实现完全的动态化顺序调整
+        setNodes(dynamicNodes);
 
         // 重置状态
         isInterrupted.set(false);

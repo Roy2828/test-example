@@ -80,21 +80,30 @@
         android:layout_marginBottom="8dp">
 
         <Button
-            android:id="@+id/btn_start_chain"
+            android:id="@+id/btn_start_chain_test"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="启动任务链 (A->H)"
-            android:textSize="12sp" />
+            android:text="执行 test() 组合\nA->B->C->F"
+            android:textSize="10sp" />
 
         <Button
-            android:id="@+id/btn_trigger_d"
+            android:id="@+id/btn_start_chain_test2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:text="抢占执行 D (停止C)"
-            android:textSize="12sp" />
+            android:text="执行 test2() 组合\nB->C->E->G"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/btn_start_chain_custom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="动态随意组合\nD->H->A"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/btn_trigger_g"
