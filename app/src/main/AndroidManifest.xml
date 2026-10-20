@@ -157,6 +157,7 @@
         <activity android:name=".mvi.TestMviActivity" android:exported="true"/>
         <activity android:name=".plugin.demo.ViewPagerDemoActivity" android:exported="true"/>
         <activity android:name=".task.TaskChainTestActivity" android:exported="false"/>
+        <activity android:name=".task.java.JavaTaskChainActivity" android:exported="true"/>
         <activity android:name=".video.VideoPlayActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:exported="true"/>
     </application>
 

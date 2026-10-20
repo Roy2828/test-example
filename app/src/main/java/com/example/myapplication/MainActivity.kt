@@ -40,6 +40,7 @@ import com.example.myapplication.web.WebViewActivity
 import com.example.myapplication.webp.WebpTestActivity
 import com.example.myapplication.xunfei.SpeakActivity
 import com.example.myapplication.task.TaskChainTestActivity
+import com.example.myapplication.task.java.JavaTaskChainActivity
 import java.util.concurrent.Executors
 
 
@@ -453,5 +454,9 @@ class MainActivity : AppCompatActivity() {
 
     fun onTaskChainClick(view: View) {
         TaskChainTestActivity.start(this)
+    }
+
+    fun onJavaTaskChainClick(view: View) {
+        JavaTaskChainActivity.start(this)
     }
 }
