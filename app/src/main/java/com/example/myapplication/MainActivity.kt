@@ -37,6 +37,7 @@ import com.example.myapplication.upload.UploadActivity
 import com.example.myapplication.utils.AssetCacheHelper
 import com.example.myapplication.utils.HookUtil
 import com.example.myapplication.web.WebViewActivity
+import com.example.myapplication.webp.WebpTestActivity
 import com.example.myapplication.xunfei.SpeakActivity
 import java.util.concurrent.Executors
 
@@ -438,5 +439,9 @@ class MainActivity : AppCompatActivity() {
 
     fun onKotlinSelectClick(view: View) {
         startActivity(Intent(this, KotlinSelectActivity::class.java))
+    }
+
+    fun onWebpPreviewClick(view: View) {
+        WebpTestActivity.start(this)
     }
 }

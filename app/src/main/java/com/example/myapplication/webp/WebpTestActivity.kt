@@ -11,15 +11,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.gif.GifDrawable
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.example.myapplication.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -56,7 +52,6 @@ class WebpTestActivity : AppCompatActivity() {
     private lateinit var ivWebpAssets: ImageView
     private lateinit var tvUrlInfo: TextView
     private lateinit var tvAssetsInfo: TextView
-    private lateinit var tvStrategy: TextView
     private lateinit var btnReload: Button
     private lateinit var btnStop: Button
 
@@ -117,20 +112,26 @@ class WebpTestActivity : AppCompatActivity() {
     private fun loadWebpFromAssets() {
         val fileName = "ic_ai_speek3.webp"
         tvAssetsInfo.text = "加载中..."
+        scope.launch {
+            val bytes = withContext(Dispatchers.IO) {
+                try {
+                    assets.open(fileName).use { it.readBytes() }
+                } catch (e: Exception) {
+                    null
+                }
+            }
+            if (bytes == null) {
+                tvAssetsInfo.text = "未找到 assets/$fileName，请放入后再试"
+                return@launch
+            }
 
-        val bytes = try {
-            assets.open(fileName).use { it.readBytes() }
-        } catch (e: Exception) {
-            tvAssetsInfo.text = "未找到 assets/$fileName，请放入后再试"
-            return
+            if (isHardwareAccelerated) {
+                decodeWithHardware(bytes, ivWebpAssets)
+            } else {
+                decodeWithGlide(bytes, ivWebpAssets)
+            }
+            tvAssetsInfo.text = "加载成功 | 来源: assets/$fileName"
         }
-
-        if (isHardwareAccelerated) {
-            decodeWithHardware(bytes, ivWebpAssets)
-        } else {
-            decodeWithGlide(bytes, ivWebpAssets)
-        }
-        tvAssetsInfo.text = "加载成功 | 来源: assets/$fileName"
     }
 
     // ======================== 核心：GPU / CPU 双路径解码 ========================
@@ -142,6 +143,7 @@ class WebpTestActivity : AppCompatActivity() {
      * 帧间切换由 RenderThread 在 GPU 完成，不经过 CPU 合成管线。
      * CPU 仅负责解压 WebP 帧（decode 阶段），播放时 CPU 基本空闲。
      */
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun decodeWithHardware(bytes: ByteArray, imageView: ImageView) {
         val source = ImageDecoder.createSource(ByteBuffer.wrap(bytes))
         val drawable = ImageDecoder.decodeDrawable(source) as AnimatedImageDrawable
@@ -187,10 +189,9 @@ class WebpTestActivity : AppCompatActivity() {
 
     private fun toggleAnimation(imageView: ImageView, play: Boolean, tag: String) {
         val drawable = imageView.drawable
-        when {
-            drawable is Animatable -> {
-                if (play) (drawable as Animatable).start()
-                else (drawable as Animatable).stop()
+        when (drawable) {
+            is Animatable -> {
+                if (play) drawable.start() else drawable.stop()
             }
             else -> {
                 Toast.makeText(this, "$tag WebP 暂不支持暂停/恢复", Toast.LENGTH_SHORT).show()

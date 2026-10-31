@@ -300,7 +300,20 @@
         android:layout_height="wrap_content"
         android:text="viewpager"
         android:onClick="onViewPagerClick"
+        app:layout_constraintBottom_toTopOf="@id/tv_webp_preview"
+        />
+
+    <TextView
+        android:id="@+id/tv_webp_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WebP 动图预览"
+        android:textColor="#009688"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:onClick="onWebpPreviewClick"
         app:layout_constraintBottom_toTopOf="@id/tv_kotlin_select"
+        app:layout_constraintLeft_toLeftOf="parent"
         />
 
     <TextView
