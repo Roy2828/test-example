@@ -444,4 +444,8 @@ class MainActivity : AppCompatActivity() {
     fun onWebpPreviewClick(view: View) {
         WebpTestActivity.start(this)
     }
+
+    fun onVideoPlayClick(view: View) {
+        com.example.myapplication.video.VideoPlayActivity.start(this)
+    }
 }

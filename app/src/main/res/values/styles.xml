@@ -104,4 +104,18 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="CampusGSYVideoLoadButton">
+        <item name="download_line_color">#FFFFA22F</item>
+        <item name="download_bg_line_color">#FFFFA22F</item>
+        <item name="download_line_width">3</item>
+        <item name="download_bg_line_width">3</item>
+    </style>
+
+    <style name="CampusGSYVideoPlayButton">
+        <item name="play_line_color">#FFFFA22F</item>
+        <item name="play_bg_line_color">#FFFFA22F</item>
+        <item name="play_line_width">3</item>
+        <item name="play_bg_line_width">3</item>
+    </style>
+
 </resources>

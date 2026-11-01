@@ -15,6 +15,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+
     }
 
     viewBinding.enabled = true
@@ -94,6 +98,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.15.1'
     kapt 'com.github.bumptech.glide:compiler:4.15.1'
     implementation 'com.github.zjupure:webpdecoder:2.6.4.15.1'
+
+    // GSYVideoPlayer - 视频播放器库 (全架构支持，含 x86/x64 模拟器)
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-java:v10.1.0'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-arm64:v10.1.0'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-armv7a:v10.1.0'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-x86:v10.1.0'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-x64:v10.1.0'
 
     // Lottie - JSON 矢量动画，支持硬件加速
     implementation 'com.airbnb.android:lottie:3.4.2'
