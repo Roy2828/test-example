@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -33,6 +34,7 @@ class VideoPlayActivity : AppCompatActivity() {
 
     private lateinit var videoPlayer: CampusGSYVideoPlayer
     private lateinit var ivBack: ImageView
+    private lateinit var ivPlayLandscape: ImageView
     private lateinit var etVideoUrl: EditText
     private lateinit var btnPlayUrl: Button
     private lateinit var btnPlaySample: Button
@@ -59,6 +61,7 @@ class VideoPlayActivity : AppCompatActivity() {
     private fun initViews() {
         videoPlayer = findViewById(R.id.video_player)
         ivBack = findViewById(R.id.iv_back)
+        ivPlayLandscape = findViewById(R.id.iv_play_landscape)
         etVideoUrl = findViewById(R.id.et_video_url)
         btnPlayUrl = findViewById(R.id.btn_play_url)
         btnPlaySample = findViewById(R.id.btn_play_sample)
@@ -69,6 +72,13 @@ class VideoPlayActivity : AppCompatActivity() {
         etVideoUrl.setText(SAMPLE_VIDEO_URL)
     }
 
+    private fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        val view = currentFocus ?: window.decorView
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        etVideoUrl.clearFocus()
+    }
+
     private fun setupPlayer() {
         // 旋转逻辑控制
         orientationUtils = OrientationUtils(this, videoPlayer)
@@ -76,6 +86,7 @@ class VideoPlayActivity : AppCompatActivity() {
 
         // 设置全屏按键功能
         videoPlayer.fullscreenButton.setOnClickListener {
+            hideKeyboard()
             orientationUtils.resolveByClick()
             videoPlayer.startWindowFullscreen(this, true, true)
         }
@@ -134,11 +145,13 @@ class VideoPlayActivity : AppCompatActivity() {
         }
 
         btnPlayUrl.setOnClickListener {
+            hideKeyboard()
             val inputUrl = etVideoUrl.text.toString().trim()
             playVideo(inputUrl, "自定义视频")
         }
 
         btnPlaySample.setOnClickListener {
+            hideKeyboard()
             etVideoUrl.setText(SAMPLE_VIDEO_URL)
             playVideo(SAMPLE_VIDEO_URL, "Big Buck Bunny 示例视频")
         }
@@ -156,6 +169,13 @@ class VideoPlayActivity : AppCompatActivity() {
         }
 
         btnFullscreen.setOnClickListener {
+            hideKeyboard()
+            orientationUtils.resolveByClick()
+            videoPlayer.startWindowFullscreen(this, true, true)
+        }
+
+        ivPlayLandscape.setOnClickListener {
+            hideKeyboard()
             orientationUtils.resolveByClick()
             videoPlayer.startWindowFullscreen(this, true, true)
         }

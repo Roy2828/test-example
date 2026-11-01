@@ -92,12 +92,15 @@
             android:textSize="12sp"/>
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/fullscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:paddingRight="16dp"
-            android:scaleType="center" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:padding="4dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_fullscreen"
+            android:visibility="visible" />
     </LinearLayout>
 
     <ImageView
