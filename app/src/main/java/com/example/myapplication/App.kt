@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.StrictMode
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.myapplication.matrix.AppMatrix
 import com.example.myapplication.utils.HookUtil
@@ -22,6 +23,24 @@ import me.jessyan.autosize.onAdaptListener
 class App :Application() {
     override fun onCreate() {
         super.onCreate()
+
+        // 捕获全局未捕获异常，彻底静默拦截 StrictMode$StrictModeViolation，防止控制台打印日志与崩溃
+        val defaultUncaughtHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            if (isStrictModeViolation(throwable)) {
+                // 静默拦截 StrictMode 相关的非致命异常
+            } else {
+                defaultUncaughtHandler?.uncaughtException(thread, throwable)
+            }
+        }
+
+        try {
+            StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX)
+            StrictMode.setVmPolicy(StrictMode.VmPolicy.LAX)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         ARouter.init(this);
 
         AutoSize.checkAndInit(this)
@@ -48,5 +67,23 @@ class App :Application() {
             e.printStackTrace()
         }
         super.attachBaseContext(base)
+    }
+
+    private fun isStrictModeViolation(throwable: Throwable?): Boolean {
+        var current: Throwable? = throwable
+        while (current != null) {
+            val className = current.javaClass.name
+            val msg = current.message ?: ""
+            if (className.contains("StrictMode") || className.contains("BlockGuard") || msg.contains("StrictMode")) {
+                return true
+            }
+            for (suppressed in current.suppressed) {
+                if (isStrictModeViolation(suppressed)) {
+                    return true
+                }
+            }
+            current = current.cause
+        }
+        return false
     }
 }

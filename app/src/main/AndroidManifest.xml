@@ -150,7 +150,7 @@
         <activity android:name=".ble.KotlinSelectActivity" android:exported="false"/>
         <activity android:name=".matrix.MatrixActivity" android:exported="false"/>
         <activity android:name=".live.CrashDemoActivity" android:exported="false"/>
-        <activity android:name=".webp.WebpTestActivity" android:exported="false"/>
+        <activity android:name=".webp.WebpTestActivity" android:exported="true"/>
         <activity android:name=".lottie.LottieTestActivity" android:exported="false"/>
         <activity android:name=".gif.GifTestActivity" android:exported="false"/>
         <activity android:name=".AsyncInflationActivity" android:exported="false"/>

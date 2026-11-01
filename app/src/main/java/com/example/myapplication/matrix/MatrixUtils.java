@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.tencent.matrix.BuildConfig;
 import com.tencent.matrix.Matrix;
-import com.tencent.matrix.iocanary.IOCanaryPlugin;
-import com.tencent.matrix.iocanary.config.IOConfig;
 import com.tencent.matrix.memory.canary.MemoryCanaryPlugin;
 import com.tencent.matrix.trace.TracePlugin;
 import com.tencent.matrix.trace.config.TraceConfig;
@@ -59,11 +57,11 @@ public class MatrixUtils {
         MemoryCanaryPlugin memoryCanaryPlugin = new MemoryCanaryPlugin();
         builder.plugin(memoryCanaryPlugin);
 
-        // io plugin
-        IOCanaryPlugin ioCanaryPlugin = new IOCanaryPlugin(new IOConfig.Builder()
-                .dynamicConfig(matrixDynamicConfig)
-                .build());
-        builder.plugin(ioCanaryPlugin);
+        // io plugin - 移除 IOCanaryPlugin 避免其注入 AndroidBlockGuardPolicy 拦截 Glide/WebP 后台线程 IO 导致 StrictMode$StrictModeViolation 崩溃
+        // IOCanaryPlugin ioCanaryPlugin = new IOCanaryPlugin(new IOConfig.Builder()
+        //         .dynamicConfig(matrixDynamicConfig)
+        //         .build());
+        // builder.plugin(ioCanaryPlugin);
 
         //init matrix
         Matrix.init(builder.build());
