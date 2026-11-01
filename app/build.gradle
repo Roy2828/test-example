@@ -91,6 +91,7 @@ dependencies {
 
     // Glide - 全版本（API 14+）支持 animated WebP 动图
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.github.zjupure:webpdecoder:2.7.4.16.0'
 
     // Lottie - JSON 矢量动画，支持硬件加速
     implementation 'com.airbnb.android:lottie:3.4.2'
