@@ -49,37 +49,46 @@ class VideoPlayActivity : AppCompatActivity() {
         val gridLayoutManager = GridLayoutManager(this, 2)
         rvVideoList.layoutManager = gridLayoutManager
 
-        // 示例视频数据
+        // 示例数据（包含视频卡片与纯图片卡片）
         val sampleVideos = listOf(
             VideoItem(
                 id = "1",
-                title = "示例视频 1 - Big Buck Bunny",
-                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4"
+                title = "视频 - Sintel 预告片",
+                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4",
+                coverUrl = "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80",
+                mediaType = MediaType.VIDEO
             ),
             VideoItem(
                 id = "2",
-                title = "示例视频 2 - 高清自然风光",
-                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4"
+                title = "纯图片 1 - 高清海滩",
+                coverUrl = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80",
+                mediaType = MediaType.IMAGE
             ),
             VideoItem(
                 id = "3",
-                title = "示例视频 3 - 城市风貌",
-                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4"
+                title = "视频 - 城市风貌",
+                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4",
+                coverUrl = "https://images.unsplash.com/photo-1477959858617-67f30ac4ce09?w=500&q=80",
+                mediaType = MediaType.VIDEO
             ),
             VideoItem(
                 id = "4",
-                title = "示例视频 4 - 纪实短片",
-                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4"
+                title = "纯图片 2 - 璀璨星空",
+                coverUrl = "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500&q=80",
+                mediaType = MediaType.IMAGE
             ),
             VideoItem(
                 id = "5",
-                title = "示例视频 5 - 动画演示",
-                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4"
+                title = "视频 - 极光探索",
+                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4",
+                coverUrl = "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=500&q=80",
+                mediaType = MediaType.VIDEO
             ),
             VideoItem(
                 id = "6",
-                title = "示例视频 6 - 校园风光",
-                videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4"
+                title = "纯图片 3 - 校园全景",
+                coverUrl = "https://images.unsplash.com/photo-1562774053-701939374585?w=500&q=80",
+                mediaType = MediaType.IMAGE
             )
         )
 

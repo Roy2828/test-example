@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="#1E1E1E"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <!-- 纯图片卡片 (固定高度 160dp，无播放器和播放按钮) -->
+    <ImageView
+        android:id="@+id/iv_pure_image"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:contentDescription="纯图片展示"
+        android:scaleType="centerCrop"
+        android:src="@drawable/shape_gray_alpha_12" />
+
+</androidx.cardview.widget.CardView>
