@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:layout_marginStart="4dp"
             android:text="抢占执行 G (停止F)"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <!-- 中断控制区域 -->

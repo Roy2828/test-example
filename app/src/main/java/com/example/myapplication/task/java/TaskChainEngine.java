@@ -215,15 +215,23 @@ public class TaskChainEngine {
     }
 
     /**
-     * 强行推进/跳转到指定节点 ID (例如: 在执行C网络请求时，强行触发执行D方法)
-     * 这会先停止当前正在运行的节点(如C)，然后再立即启动目标节点(如D)，并继续后续流程(D -> E -> F...)
+     * 强行推进/跳转到指定节点 ID 
+     * 如果当前任务链正在执行其他节点，将先停止当前节点并立即启动目标节点。
+     * 
+     * 注意：如果当前引擎并没有在运行任何任务（即处于空闲/执行完毕状态），
+     * 应该拒绝抢占，因为引擎没有“运行时上下文”。如果想要单独执行 G，应该通过 start() 传入节点。
      *
-     * @param targetNodeId 目标节点ID (例如 "D")
+     * @param targetNodeId 目标节点ID (例如 "G")
      */
     public synchronized boolean proceedToStep(String targetNodeId) {
+        if (!isRunning.get()) {
+            Log.e(TAG, "当前引擎未在运行状态，无法执行抢占跳转！");
+            return false;
+        }
+
         int targetIndex = findNodeIndex(targetNodeId);
         if (targetIndex == -1) {
-            Log.e(TAG, "无法抢占/跳转，找不到节点: " + targetNodeId);
+            Log.e(TAG, "无法抢占/跳转，在当前链中找不到节点: " + targetNodeId);
             return false;
         }
 

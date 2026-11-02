@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.task.java.nodes.TaskNodeA;
@@ -48,6 +49,7 @@ public class JavaTaskChainActivity extends AppCompatActivity implements ChainLis
     private Button btnStartTest;
     private Button btnStartTest2;
     private Button btnStartCustom;
+    private Button btnTriggerG;
 
     private Button btnInterruptCurrent;
     private Button btnInterruptA;
@@ -81,6 +83,7 @@ public class JavaTaskChainActivity extends AppCompatActivity implements ChainLis
         btnStartTest = findViewById(R.id.btn_start_chain_test);
         btnStartTest2 = findViewById(R.id.btn_start_chain_test2);
         btnStartCustom = findViewById(R.id.btn_start_chain_custom);
+        btnTriggerG = findViewById(R.id.btn_trigger_g);
 
         btnInterruptCurrent = findViewById(R.id.btn_interrupt_current);
         btnInterruptA = findViewById(R.id.btn_interrupt_a);
@@ -132,6 +135,19 @@ public class JavaTaskChainActivity extends AppCompatActivity implements ChainLis
                     new TaskNodeH(),
                     new TaskNodeA()
             ));
+        });
+
+        // 新增：测试抢占执行 G
+        btnTriggerG.setOnClickListener(v -> {
+            appendLog("【抢占指令】请求强行执行节点 G");
+            boolean success = engine.proceedToStep("G");
+            if (!success) {
+                if (!engine.isRunning()) {
+                    Toast.makeText(this, "当前引擎未运行，抢占失败！请先点击『执行 test2()』然后再点抢占。", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "当前任务链中不包含 G 节点，无法跳转！", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         // 4. 中断当前运行的环节
